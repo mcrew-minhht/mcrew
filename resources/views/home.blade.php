@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('pageTitle', 'Page Title')
+@section('pageTitle', 'MCREW TECH')
 
 @section('content')
     <!-- Content -->
