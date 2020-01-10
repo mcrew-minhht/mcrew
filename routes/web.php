@@ -11,9 +11,12 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/test', function () {
+//    echo App::getLocale();
+    echo __('widget.languages');
+});
+
+
 
 Auth::routes();
 

@@ -64,6 +64,8 @@
         }
 
     </style>
+
+    <link rel="stylesheet" href="css/common.css">
 </head>
 
 <body>

@@ -13,9 +13,23 @@
                 <button class="search-trigger"><i class="fa fa-search"></i></button>
                 <div class="form-inline">
                     <form class="search-form">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                        <input class="form-control mr-sm-2" type="text" placeholder="{{ __('widget.search') }} ..." aria-label="Search">
                         <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                     </form>
+                </div>
+
+                <div class="dropdown for-notification">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>{{ __('widget.languages') }}</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="notification">
+                        <a class="dropdown-item media {{App::getLocale() == 'vi' ? 'bg-aqa' : ''}}" href="#">
+                            <p>{{ __('countries.vietnamese') }}</p>
+                        </a>
+                        <a class="dropdown-item media {{App::getLocale() == 'en' ? 'bg-aqa' : ''}}" href="#">
+                            <p>{{ __('countries.english') }}</p>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="dropdown for-notification">
@@ -89,13 +103,13 @@
                 </a>
 
                 <div class="user-menu dropdown-menu">
-                    <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                    <a class="nav-link" href="#"><i class="fa fa- user"></i>{{ __('widget.my_profile') }}</a>
 
-                    <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+                    <a class="nav-link" href="#"><i class="fa fa- user"></i>{{ __('widget.nofitications') }} <span class="count">13</span></a>
 
-                    <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                    <a class="nav-link" href="#"><i class="fa fa -cog"></i>{{ __('widget.settings') }}</a>
 
-                    <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-power -off"></i>Logout</a>
+                    <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-power -off"></i>{{ __('widget.logout') }}</a>
                 </div>
             </div>
 
