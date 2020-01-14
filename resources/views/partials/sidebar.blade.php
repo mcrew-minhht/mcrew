@@ -2,17 +2,18 @@
     <div id="main-menu" class="main-menu collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <li class="active">
-                <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                <a href=""><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
             </li>
-            <li class="menu-title">{{ __('widget.user') }}</li><!-- /.menu-title -->
+
+            <li class="menu-title">{{ __('widget.user') }}</li>
             <li>
                 <a href="users/list"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
             </li>
             <li>
                 <a href="users/regist"> <i class="menu-icon ti-write"></i>{{ __('widget.regist') }}</a>
             </li>
-            <li class="menu-title">KẾ TOÁN</li><!-- /.menu-title -->
 
+            <li class="menu-title">KẾ TOÁN</li>
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
                 <ul class="sub-menu children dropdown-menu">
@@ -39,7 +40,8 @@
                     <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
                 </ul>
             </li>
-            <li class="menu-title">KHÁC</li><!-- /.menu-title -->
+
+            <li class="menu-title">KHÁC</li>
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
                 <ul class="sub-menu children dropdown-menu">
