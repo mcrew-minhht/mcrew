@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRegist;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 
 class UserController extends Controller
 {
@@ -32,9 +33,8 @@ class UserController extends Controller
     public function regist(UserRegist $request)
     {
         $data = [
-            'name' => $request->input('name'), 
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'email_verified_at' => $request->input('email_verified_at'),
             'password' => Hash::make($request->input('password')),
             'birthday' => $request->input('birthday'),
             'identity' => $request->input('identity'),
@@ -46,11 +46,13 @@ class UserController extends Controller
             'join_company_date' => $request->input('join_company_date'),
             'company_staff_date' => $request->input('company_staff_date'),
             'role' => $request->input('role'),
+            'created_at' => date(Config::get('constants.DATETIME_FORMAT_MYSQL')),
+            'updated_at' => date(Config::get('constants.DATETIME_FORMAT_MYSQL'))
         ];
         DB::table('users')->insert(
             $data
         );
 
-        return redirect('users/regist')->with('success', 'regist success!');
+        return redirect('users/regist')->with('success', 'Registration has been completed.');
     }
 }
