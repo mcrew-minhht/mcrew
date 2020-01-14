@@ -4,9 +4,9 @@
     <section class="content">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">REGISTER USER</h3>
+                <h3 class="box-title">SEARCH USER</h3>
             </div>
-            <form action="{{asset('users/regist/save')}}" method="POST" class="form-horizontal">@csrf
+            <form action="{{asset('users/regist/search')}}" method="POST" class="form-horizontal">@csrf
                 <div class="row form-group">
                     <div class="col col-md-4">
                         <label>Name</label>
@@ -23,9 +23,9 @@
                         @enderror
                     </div>
                     <div class="col col-md-4">
-                        <label>Password</label>
-                        <input type="text" class="form-control" name="password" value="{{old('password', '')}}">
-                        @error('password')
+                        <label>Birthday</label>
+                        <input type="date" class="form-control" name="birthday" value="{{old('birthday', '')}}">
+                        @error('birthday')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -76,45 +76,61 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row form-group">
-                    <div class="col col-md-4">
-                        <label>Birthday</label>
-                        <input type="date" class="form-control" name="birthday" value="{{old('birthday', '')}}">
-                        @error('birthday')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col col-md-4">
-                        <label>Join Company Date</label>
-                        <input type="date" class="form-control" name="join_company_date" value="{{old('join_company_date', '')}}">
-                        @error('join_company_date')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col col-md-4">
-                        <label>Company Staff Date</label>
-                        <input type="date" class="form-control" name="company_staff_date" value="{{old('company_staff_date', '')}}">
-                        @error('company_staff_date')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col col-md-4">
-                        <label>Role</label>
-                        <select  class="form-control" name="role">
-                            <option value="0" {{old('role', '') == '0' ? 'selected' : ''}}>Admin</option>
-                            <option value="1" {{old('role', '') == '1' ? 'selected' : ''}}>Staff</option>
-                        </select>
-                        @error('role')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary float-right">Register</button>
+                    <button type="submit" class="btn btn-primary float-right">Search</button>
                 </div>
             </form>
+        </div>
+    </section>
+    <section class="content">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">SEARCH RESULTS</h3>
+            </div>
+            <div style="overflow-x: scroll">
+                <table id="bootstrap-data-table" class="table table-striped table-bordered table-hover table-sm">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Identity</th>
+                        <th>Phone Number</th>
+                        <th>Current Address</th>
+                        <th>Birthday</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>$320,800</td>
+                        <td>Tiger Nixon</td>
+                        <td>Tiger Nixon</td>
+                        <td class="text-center"><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                    </tr>
+                    <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>$320,800</td>
+                        <td>Tiger Nixon</td>
+                        <td>Tiger Nixon</td>
+                        <td class="text-center"><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                    </tr>
+                    <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>$320,800</td>
+                        <td>Tiger Nixon</td>
+                        <td>Tiger Nixon</td>
+                        <td class="text-center"><a href="" class="btn btn-sm btn-info">Detail</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 @endsection

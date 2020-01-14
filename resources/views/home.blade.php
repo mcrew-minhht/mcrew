@@ -1,7 +1,5 @@
 @extends('master')
 
-@section('pageTitle', 'MCREW TECH')
-
 @section('content')
     <!-- Content -->
     <div class="content">
