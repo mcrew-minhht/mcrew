@@ -2,11 +2,12 @@
     <div id="main-menu" class="main-menu collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <li class="active">
-                <a href=""><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                <a href="#"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
             </li>
 
             <li class="menu-title">{{ __('widget.user') }}</li>
             <li>
+                <a href="users/search"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
                 <a href="users/list"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
             </li>
             <li>

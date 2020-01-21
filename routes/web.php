@@ -25,8 +25,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/users/regist', 'UserController@registView');
 Route::POST('/users/regist/save', 'UserController@regist');
+Route::get('/users/search', 'UserController@searchView');
+Route::POST('/users/search/submit', 'UserController@search');
 Route::get('/users/list', 'UserController@listView');
-Route::get('/users/list/search', 'UserController@search');
+Route::get('/users/list/search', 'UserController@search1');
 
 Route::resource('companies', 'CompanyController');
 

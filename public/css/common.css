@@ -1,4 +1,29 @@
+/* template config */
+html, body, #right-panel{
+    height: 100% !important;
+}
+section.content{
+    background-color: rgb(243, 243, 243);
+}
+div.box{
+    background-color: white;
+}
+
+
 /* background colors */
 .bg-aqa{
     background-color: aquamarine;
 }
+.bg-sky{
+    background-color: rgb(236, 240, 245);
+}
+.bg-white{
+    background-color: white;
+}
+.bg-gray-o1{
+    background-color: rgb(209, 214, 238);
+}
+
+
+
+
