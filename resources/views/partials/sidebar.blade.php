@@ -13,6 +13,14 @@
                 <a href="users/regist"> <i class="menu-icon ti-write"></i>{{ __('widget.regist') }}</a>
             </li>
 
+            <li class="menu-title">{{ __('Company') }}</li>
+            <li>
+                <a href="companies/list"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
+            </li>
+            <li>
+                <a href="companies/create"> <i class="menu-icon ti-write"></i>{{ __('widget.regist') }}</a>
+            </li>
+
             <li class="menu-title">KẾ TOÁN</li>
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
