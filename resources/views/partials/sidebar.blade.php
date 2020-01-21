@@ -2,24 +2,30 @@
     <div id="main-menu" class="main-menu collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <li class="active">
-                <a href="#"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                <a href="#"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
             </li>
 
-            <li class="menu-title">{{ __('widget.user') }}</li>
-            <li>
-                <a href="users/search"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
-                <a href="users/list"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
+            <li class="menu-title">Information</li>
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>User</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-search"></i><a href="users/search">List</a></li>
+                    <li><i class="menu-icon fa fa-check-square"></i><a href="users/regist">Register</a></li>
+                </ul>
             </li>
-            <li>
-                <a href="users/regist"> <i class="menu-icon ti-write"></i>{{ __('widget.regist') }}</a>
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Company</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-search"></i><a href="companies">List</a></li>
+                    <li><i class="menu-icon fa fa-check-square"></i><a href="companies/create">Register</a></li>
+                </ul>
             </li>
-
-            <li class="menu-title">{{ __('Company') }}</li>
-            <li>
-                <a href="companies/list"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
-            </li>
-            <li>
-                <a href="companies/create"> <i class="menu-icon ti-write"></i>{{ __('widget.regist') }}</a>
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Device</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-search"></i><a href="font-fontawesome.html">List</a></li>
+                    <li><i class="menu-icon fa fa-check-square"></i><a href="font-themify.html">Register</a></li>
+                </ul>
             </li>
 
             <li class="menu-title">KẾ TOÁN</li>
