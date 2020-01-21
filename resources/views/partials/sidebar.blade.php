@@ -2,11 +2,11 @@
     <div id="main-menu" class="main-menu collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <li class="active">
-                <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                <a href="#"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
             </li>
             <li class="menu-title">{{ __('widget.user') }}</li><!-- /.menu-title -->
             <li>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
+                <a href="users/search"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
             </li>
             <li>
                 <a href="users/regist"> <i class="menu-icon ti-write"></i>{{ __('widget.regist') }}</a>
