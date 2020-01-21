@@ -14,8 +14,9 @@ class CompanyRepository
         $this->company = $company;
     }
 
-    public function create($attributes)
+    public function create(array $attributes)
     {
-        return $this->company->create($attributes);
+        $this->company->fill($attributes);
+        $this->company->save();
     }
 }
