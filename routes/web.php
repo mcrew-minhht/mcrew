@@ -31,6 +31,7 @@ Route::get('/users/list', 'UserController@listView');
 Route::get('/users/list/search', 'UserController@search1');
 
 Route::resource('companies', 'CompanyController');
+Route::POST('/companies/store', 'CompanyController@store');
 
 
 Route::get('logout', 'Auth\LoginController@logout');

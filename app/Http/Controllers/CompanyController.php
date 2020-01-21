@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Services\CompanyService;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
+    protected $companyService;
+
+    public function __construct(CompanyService $companyService)
+    {
+        $this->companyService = $companyService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,16 +35,14 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  $request
+     * @return object
      */
     public function store(Request $request)
     {
-        $request->validate([
-           'name' => 'required'
-        ]);
+        $this->companyService->create($request);
 
-        Company::create($request->all());
+        return redirect('companies/create')->with('success', 'Registration has been completed.');
     }
 
     /**
