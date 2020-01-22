@@ -28,5 +28,8 @@ Route::POST('/users/regist/save', 'UserController@regist');
 Route::get('/users/search', 'UserController@searchView');
 Route::POST('/users/search/submit', 'UserController@search');
 
+Route::resource('companies', 'CompanyController');
+Route::POST('/companies/store', 'CompanyController@store');
+
 
 Route::get('logout', 'Auth\LoginController@logout');
