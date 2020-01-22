@@ -8,6 +8,18 @@ section.content{
 div.box{
     background-color: white;
 }
+.card-footer-o1{
+    padding: 12px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+
+/* flexbox */
+.perfect-center-ctn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 /* background colors */

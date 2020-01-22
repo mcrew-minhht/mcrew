@@ -8,7 +8,6 @@
             <li class="menu-title">{{ __('widget.user') }}</li>
             <li>
                 <a href="users/search"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
-                <a href="users/list"> <i class="menu-icon fa fa-table"></i>{{ __('widget.list') }}</a>
             </li>
             <li>
                 <a href="users/regist"> <i class="menu-icon ti-write"></i>{{ __('widget.regist') }}</a>
