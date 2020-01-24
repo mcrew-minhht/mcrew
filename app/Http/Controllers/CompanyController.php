@@ -16,12 +16,23 @@ class CompanyController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         return view('companies.list');
+    }
+
+    /**
+     * Search company with condition
+     * @param $request
+     * @return void
+     */
+    public function search(Request $request)
+    {
+        $lists = $this->companyService->search($request);
+        return view('companies.list', [
+            'lists' => $lists
+        ]);
     }
 
     /**
@@ -36,7 +47,7 @@ class CompanyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  $request
-     * @return object
+     * @return void
      */
     public function store(Request $request)
     {

@@ -30,6 +30,7 @@ Route::POST('/users/search/submit', 'UserController@search');
 
 Route::resource('companies', 'CompanyController');
 Route::POST('/companies/store', 'CompanyController@store');
+Route::POST('/companies/search', 'CompanyController@search');
 
 
 Route::get('logout', 'Auth\LoginController@logout');

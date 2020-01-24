@@ -15,6 +15,16 @@ class CompanyService
         $this->companyRepository = $companyRepository;
     }
 
+    public function search(Request $request)
+    {
+        $request->flash();
+        $param['name'] = $request->input('name');
+        $param['phone'] = $request->input('phone');
+        $param['address'] = $request->input('address');
+        $param['email'] = $request->input('email');
+        return $this->companyRepository->search($param);
+    }
+
     public function create(Request $request)
     {
         $request->validate([
