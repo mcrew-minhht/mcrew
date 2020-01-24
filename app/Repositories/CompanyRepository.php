@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Company;
-use Illuminate\Support\Facades\DB;
 
 class CompanyRepository
 {
@@ -17,16 +16,16 @@ class CompanyRepository
 
     public function search(array $param)
     {
-        $company = DB::table('companies');
+        $com = $this->company->newQuery();
         if (!empty($param['name']))
-            $company->where('name', 'LIKE', '%' . $param['name'] . '%');
+            $com->where('name', 'LIKE', '%' . $param['name'] . '%');
         if (!empty($param['phone']))
-            $company->where('phone', '=', $param['phone']);
+            $com->where('phone', '=', $param['phone']);
         if (!empty($param['address']))
-            $company->where('address', 'LIKE', '%' . $param['address'] . '%');
+            $com->where('address', 'LIKE', '%' . $param['address'] . '%');
         if (!empty($param['email']))
-            $company->where('email', '=', $param['email']);
-        return $company->get()->toArray();
+            $com->where('email', '=', $param['email']);
+        return $com->get()->toArray();
     }
 
     public function create(array $attributes)

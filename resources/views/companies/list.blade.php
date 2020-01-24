@@ -76,10 +76,10 @@
                         @if(count($lists))
                             @foreach($lists as $list)
                             <tr>
-                                <td>{{$list->name}}</td>
-                                <td>{{$list->phone}}</td>
-                                <td>{{$list->address}}</td>
-                                <td>{{$list->email}}</td>
+                                <td>{{$list['name']}}</td>
+                                <td>{{$list['phone']}}</td>
+                                <td>{{$list['address']}}</td>
+                                <td>{{$list['email']}}</td>
                                 <td>
                                     <div class="perfect-center-ctn">
                                         <a href="" class="btn btn-sm btn-info">Detail</a>
