@@ -32,5 +32,8 @@ Route::resource('companies', 'CompanyController');
 Route::POST('/companies/store', 'CompanyController@store');
 Route::POST('/companies/search', 'CompanyController@search');
 
+Route::get('/work_time', 'WorkTimeController@index');
+Route::post('/work_time/search', 'WorkTimeController@search');
+
 
 Route::get('logout', 'Auth\LoginController@logout');

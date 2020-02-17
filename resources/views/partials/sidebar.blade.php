@@ -19,6 +19,9 @@
                     <li><i class="menu-icon fa fa-check-square"></i><a href="companies/create">Register</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="work_time"> <i class="menu-icon ti-email"></i>Work Time</a>
+            </li>
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Device</a>
                 <ul class="sub-menu children dropdown-menu">
@@ -26,7 +29,6 @@
                     <li><i class="menu-icon fa fa-check-square"></i><a href="font-themify.html">Register</a></li>
                 </ul>
             </li>
-
             <li class="menu-title">KẾ TOÁN</li>
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
