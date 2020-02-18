@@ -60,6 +60,7 @@
 
     <link rel="stylesheet" href="{{asset('css/common.css?v='.time())}}">
 
+    @yield('css')
 </head>
 
 <body>

@@ -34,6 +34,7 @@ Route::POST('/companies/search', 'CompanyController@search');
 
 Route::get('/work_time', 'WorkTimeController@index');
 Route::post('/work_time/search', 'WorkTimeController@search');
+Route::post('/work_time/save', 'WorkTimeController@save');
 
 
 Route::get('logout', 'Auth\LoginController@logout');
