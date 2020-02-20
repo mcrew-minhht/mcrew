@@ -40,8 +40,8 @@
     <div class="card">
         <form action="{{asset('work_time/save')}}" method="POST" id="saveForm">@csrf
             <input name="monthYear" type="hidden" value='{{$month}}'>
-            <div class="card-header">
-                <strong class="card-title">{{ $month }}</strong>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <strong class="card-title m-0">{{ $month }}</strong>
                 <div class="pull-right">
                     <button type="button" class="btn btn-primary mr-10 editModeBtn toggleE1">Edit Mode</button>
                     <button type="button" class="btn btn-primary toggleE1">Export PDF</button>
@@ -100,6 +100,7 @@
 
 @section('js')
 <script>
+    var WORK_TIME = {};
     var result = <?php
                     if (isset($result)) {
                         echo json_encode($result);
@@ -121,20 +122,8 @@
                         echo '';
                     }
                     ?>;
-    $(document).ready(function() {
-        $('input[name="time[]"]').change(function() {
-            let sum = 0;
-            $('input[name="time[]"]').each(function(index) {
-                sum += parseFloat($(this).val());
-            });
-            $('td#timeSum').html(sum);
-        });
-
-        $('button.editModeBtn').click(function() {
-            $('input.toggleE2, select.toggleE2, button.toggleE2').css('display', 'inline-block');
-            $('span.toggleE1, button.toggleE1').css('display', 'none');
-        });
-
+                    
+    WORK_TIME.reset = function() {
         $('button.resetBtn').click(function() {
             $('tbody#dynamicBody1 tr').remove();
 
@@ -175,7 +164,30 @@
             $('span.toggleE1').css('display', 'inline');
             $('button.toggleE1').css('display', 'inline-block');
             $('button.toggleE2, input.toggleE2, select.toggleE2').css('display', 'none');
+
+            WORK_TIME.sum();
         });
+    };
+
+    WORK_TIME.sum = function() {
+        $('input[name="time[]"]').change(function() {
+            let sum = 0;
+            $('input[name="time[]"]').each(function(index) {
+                sum += parseFloat($(this).val());
+            });
+            $('td#timeSum').html(sum);
+        });
+    };
+    $(document).ready(function() {
+        WORK_TIME.reset();
+        WORK_TIME.sum();
+        
+        $('button.editModeBtn').click(function() {
+            $('input.toggleE2, select.toggleE2, button.toggleE2').css('display', 'inline-block');
+            $('span.toggleE1, button.toggleE1').css('display', 'none');
+        });
+
+
     });
 </script>
 @endsection

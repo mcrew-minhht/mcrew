@@ -85,7 +85,7 @@ class WorkTimeController extends Controller
             'result' => $result,
             'totalWorkTime' => $totalWorkTime,
             'projects' => $projects,
-            'month' => $request->month,
+            'month' => $monthYear,
         ]);
     }
 

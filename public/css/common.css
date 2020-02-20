@@ -47,4 +47,11 @@ div.box{
 .mr-10{
     margin-right: 10px;
 }
+.mb-0p75r{
+    margin-bottom: 0.75rem;
+}
+.m-0{
+    margin: 0;
+}
 
+/* padding */
