@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use PDF;
 
 class WorkTimeController extends Controller
 {
@@ -81,6 +82,17 @@ class WorkTimeController extends Controller
         ->select('id', 'name')
         ->get();
 
+        if($request->isDownloadPdf){
+            $pdf = PDF::loadView('work_time/work_time_pdf', [
+                'result' => $result,
+                'totalWorkTime' => $totalWorkTime,
+                'projects' => $projects,
+                'month' => $monthYear,
+                'username' => $user->username,
+            ]);
+            return $pdf->download($monthYear.'_work_time.pdf');
+        }
+        
         return view('work_time.work_time', [
             'result' => $result,
             'totalWorkTime' => $totalWorkTime,
@@ -118,6 +130,9 @@ class WorkTimeController extends Controller
 
         $request->session()->flash('success', 'Save was successful!');
         return $this->search($request, $monthYear);
+    }
+
+    public function csvDownload(Request $request){
     }
 
    

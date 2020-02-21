@@ -12,8 +12,7 @@
 */
 
 Route::get('/test', function () {
-//    echo App::getLocale();
-    echo __('widget.languages');
+    return view('work_time/work_time_pdf');
 });
 
 

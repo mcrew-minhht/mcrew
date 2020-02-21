@@ -38,13 +38,17 @@
     </form>
     @if(isset($result))
     <div class="card">
+        <form action="{{asset('work_time/search')}}" method="POST" id="pdfDownloadForm">@csrf
+            <input type="hidden" name="isDownloadPdf" value="true">
+            <input type="hidden" name="month" value="{{ $month }}">
+        </form>
         <form action="{{asset('work_time/save')}}" method="POST" id="saveForm">@csrf
             <input name="monthYear" type="hidden" value='{{$month}}'>
             <div class="card-header d-flex justify-content-between align-items-center">
                 <strong class="card-title m-0">{{ $month }}</strong>
                 <div class="pull-right">
                     <button type="button" class="btn btn-primary mr-10 editModeBtn toggleE1">Edit Mode</button>
-                    <button type="button" class="btn btn-primary toggleE1">Export PDF</button>
+                    <button type="button" class="btn btn-primary toggleE1 pdfDBtn">Export PDF</button>
                     <button type="button" class="btn btn-danger mr-10 toggleE2 resetBtn">Reset</button>
                     <button type="submit" class="btn btn-success toggleE2">Save</button>
                 </div>
@@ -186,7 +190,10 @@
             $('input.toggleE2, select.toggleE2, button.toggleE2').css('display', 'inline-block');
             $('span.toggleE1, button.toggleE1').css('display', 'none');
         });
-
+        
+        $('button.pdfDBtn').click(function() {
+            $('form#pdfDownloadForm').submit();
+        });
 
     });
 </script>
