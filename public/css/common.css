@@ -38,6 +38,15 @@ div.box{
 
 
 /* margin */
+.mt-40{
+    margin-top: 40px;
+}
+.mt-20{
+    margin-top: 20px;
+}
+.mt-10{
+    margin-top: 10px;
+}
 .ml-20{
     margin-left: 20px;
 }
@@ -47,4 +56,78 @@ div.box{
 .mr-10{
     margin-right: 10px;
 }
+.mb-0p75r{
+    margin-bottom: 0.75rem;
+}
+.m-0{
+    margin: 0;
+}
 
+/* padding */
+
+
+/* width */
+.w-100pc{
+    width: 100%;
+}
+.w-80pc{
+    width: 80%;
+}
+.w-70pc{
+    width: 70%;
+}
+.w-60pc{
+    width: 60%;
+}
+.w-59pc{
+    width: 59%;
+}
+.w-40pc{
+    width: 40%;
+}
+.w-39pc{
+    width: 39%;
+}
+.w-30pc{
+    width: 30%;
+}
+.w-20pc{
+    width: 20%;
+}
+.w-10pc{
+    width: 10%;
+}
+
+
+/* display style  */
+.d-ib{
+    display: inline-block;
+}
+
+
+/* align */
+.t-center{
+    text-align: center;
+}
+
+
+/* border styles */
+.bb-o1{
+    border-bottom: 1px solid black;
+}
+.btrb-o1{
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.b-o1{
+    border: 1px solid black;
+}
+
+/* table styles */
+table.table-o1{
+    width: 100%;
+}
+table.table-o1, table.table-o1 th, table.table-o1 td{
+    border-collapse: collapse;
+}
