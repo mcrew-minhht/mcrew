@@ -88,7 +88,7 @@ class WorkTimeController extends Controller
                 'totalWorkTime' => $totalWorkTime,
                 'projects' => $projects,
                 'month' => $monthYear,
-                'username' => $user->username,
+                'name' => $user->name,
             ]);
             return $pdf->download($monthYear.'_work_time.pdf');
         }
@@ -132,8 +132,4 @@ class WorkTimeController extends Controller
         return $this->search($request, $monthYear);
     }
 
-    public function csvDownload(Request $request){
-    }
-
-   
 }

@@ -19,7 +19,7 @@
     <div class="mt-20">
         <div class="d-ib bb-o1  w-40pc">
             <p class="d-ib w-20pc m-0">Name:</p>
-            <p class="d-ib w-70pc t-center m-0">{{$username}}</p>
+            <p class="d-ib w-70pc t-center m-0">{{$name}}</p>
         </div>
     </div>
     <table class="table-o1 mt-20">
@@ -37,7 +37,7 @@
                     <td class=" t-center b-o1">{{ $i['day'] }}</td>
                     <td class=" t-center b-o1">{{ $i['dayOfWeek'] }}</td>
                     <td class=" t-center b-o1">{{ $i['time'] }}</td>
-                    <td class=" b-o1">{{ $i['projectName'] }}</td>
+                    <td class=" b-o1">&nbsp;{{ $i['projectName'] }}</td>
                 </tr>
             @endforeach
             <tr>
