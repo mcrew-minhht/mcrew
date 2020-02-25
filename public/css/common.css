@@ -97,11 +97,35 @@ div.box{
 .w-10pc{
     width: 10%;
 }
+.w-m-700p{
+    min-width: 700px;
+}
+.w-400p{
+    width: 400px;
+}
+.w-300p{
+    width: 300px;
+}
+.w-100p{
+    width: 100px;
+}
+.w-80p{
+    width: 80px;
+}
+.w-50p{
+    width: 50px;
+}
+.w-5r{
+    width: 5rem;
+}
 
 
 /* display style  */
 .d-ib{
     display: inline-block;
+}
+.d-n{
+    display: none;
 }
 
 

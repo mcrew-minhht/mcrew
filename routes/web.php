@@ -10,9 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Constants;
 
 Route::get('/test', function () {
-    return view('work_time/work_time_pdf');
+
 });
 
 
