@@ -65,15 +65,28 @@ class WorkTimeController extends Controller
         $year = $timeGroup[0];
         $totalDay = cal_days_in_month(CAL_GREGORIAN, $monthOfYear, $year);
         $userId = $request->userId ? $request->userId : $user->id;
-        $userName = $request->userName ? '/'.$request->userName : '';
+        $userName = $request->userName ? $request->userName : $user->name;
 
+        dd($monthYear, $userId);
+        
         $rResult = DB::table('work_time')
         ->leftJoin('projects', 'work_time.project', '=', 'projects.id')
         ->select('work_time.date', 'work_time.user_id', 'work_time.work_time', 'work_time.project as projectID', 'projects.name as projectName')
         ->where([
             ['date', 'like', $monthYear . '%'],
             ['user_id', '=', $userId],
-        ])->get();
+        ])
+        // ->when($userId, function ($query, $userId) use($monthYear) {
+        //     return $query->where([
+        //         ['date', 'like', $monthYear . '%'],
+        //         ['user_id', '=', $userId],
+        //     ]);
+        // }, function ($query) use($monthYear) {
+        //     return $query->where([
+        //         ['date', 'like', $monthYear . '%'],
+        //     ]);
+        // })
+        ->get();
         
 
         $result = [];
@@ -114,9 +127,9 @@ class WorkTimeController extends Controller
                 'totalWorkTime' => $totalWorkTime,
                 'projects' => $projects,
                 'month' => $monthYear,
-                'name' => $user->name,
+                'name' => $userName,
             ]);
-            return $pdf->download($monthYear.'_'.$user->name.'.pdf');
+            return $pdf->download($monthYear.'_'.$userName.'.pdf');
         }
         
         return view('work_time.work_time', [
@@ -126,11 +139,12 @@ class WorkTimeController extends Controller
             'month' => $monthYear,
             'targetSelectData' => $targetSelectData,
             'userName' => $userName,
+            'userId' => $userId,
         ]);
     }
 
     public function save(Request $request){
-        $userID = Auth::user()->id;
+        $userID = $request->userId;
         $time = $request->time;
         $projects = $request->projects;
         $monthYear = $request->monthYear;
