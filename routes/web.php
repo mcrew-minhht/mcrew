@@ -13,7 +13,8 @@
 use App\Constants;
 
 Route::get('/test', function () {
-
+// dd(file_exists( public_path('pdfs') ));
+mkdir(public_path('pdfs'));
 });
 
 
