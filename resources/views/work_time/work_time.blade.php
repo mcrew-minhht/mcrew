@@ -136,9 +136,9 @@
     </form>
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <strong class="card-title m-0">{{ $month }}/All users</strong>
+            <strong class="card-title m-0">{{ $month }}/Search/{{ $searchName }}</strong>
             <div class="pull-right">
-                <button type="button" class="btn btn-primary toggleE1 pdfDBtn3" data-month="{{$month}}" data-userId="false">Export PDF</button>
+                <button type="button" class="btn btn-primary toggleE1 pdfDBtn3" data-month="{{$month}}" data-userId="{{$listUID}}">Export PDF</button>
             </div>
         </div>
         <div class="card-body">
