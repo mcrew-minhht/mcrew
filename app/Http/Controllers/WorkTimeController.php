@@ -37,6 +37,7 @@ class WorkTimeController extends Controller
         }else{
             $monthYear = $request->month;
         }
+
         if($request->target){
             $name = $request->name;
             $grandResult = DB::table('work_time')
@@ -100,7 +101,8 @@ class WorkTimeController extends Controller
         // dd($resultGroup);
         $result = [];
         foreach($resultGroup as $i0 => $v0){
-            $userName = DB::table('users')->select('name')->where('id', '=', $i0);
+            $userName = DB::table('users')->select('name')->where('id', '=', $i0)->first();
+            $userName = !empty($userName) ? $userName->name : '';
             $result[$i0] = [
                 'data' => [],
                 'totalWorkTime' => 0,
@@ -137,6 +139,10 @@ class WorkTimeController extends Controller
         ->get();
 
         if($request->isDownloadPdf){
+            if( !file_exists( public_path('pdfs') ) ){
+                mkdir(public_path('pdfs'));
+            }
+            $pathList = [];
             foreach($result as $i1){
                 $pdf = PDF::loadView('work_time/work_time_pdf', [
                     'result' => $i1['data'],
@@ -144,13 +150,11 @@ class WorkTimeController extends Controller
                     'month' => $monthYear,
                     'name' => $i1['userName'],
                 ]);
-                if( !file_exists( public_path('pdfs') ) ){
-                    mkdir(public_path('pdfs'));
-                }
-
                 // To be continue
-                $pdf->save( public_path('pdfs').'/'.$monthYear.'_'.$i1['userName'].'.pdf' );
+                $pdf->save( public_path('pdfs/').'/'.$monthYear.'_'.$i1['userName'].'.pdf' );
+                array_push($pathList, public_path('pdfs/').'/'.$monthYear.'_'.$i1['userName'].'.pdf');
             }
+
             // return $pdf->download($monthYear.'_'.$userName.'.pdf');
         }else{
             return view('work_time.work_time', [
