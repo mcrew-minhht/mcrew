@@ -5,16 +5,16 @@
                 <a href="#"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
             </li>
             <li class="menu-title">Information</li>
-            <li class="menu-item-has-children dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>User</a>
-                <ul class="sub-menu children dropdown-menu">
+            <li class="menu-item-has-children dropdown show">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-tasks"></i>User</a>
+                <ul class="sub-menu children dropdown-menu show">
                     <li><i class="menu-icon fa fa-search"></i><a href="users/search">List</a></li>
                     <li><i class="menu-icon fa fa-check-square"></i><a href="users/regist">Register</a></li>
                 </ul>
             </li>
-            <li class="menu-item-has-children dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Company</a>
-                <ul class="sub-menu children dropdown-menu">
+            <li class="menu-item-has-children dropdown show">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-tasks"></i>Company</a>
+                <ul class="sub-menu children dropdown-menu show">
                     <li><i class="menu-icon fa fa-search"></i><a href="companies">List</a></li>
                     <li><i class="menu-icon fa fa-check-square"></i><a href="companies/create">Register</a></li>
                 </ul>
@@ -22,9 +22,9 @@
             <li>
                 <a href="work_time"> <i class="menu-icon ti-email"></i>Work Time</a>
             </li>
-            <li class="menu-item-has-children dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Device</a>
-                <ul class="sub-menu children dropdown-menu">
+            <li class="menu-item-has-children dropdown show">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-tasks"></i>Device</a>
+                <ul class="sub-menu children dropdown-menu show">
                     <li><i class="menu-icon fa fa-search"></i><a href="font-fontawesome.html">List</a></li>
                     <li><i class="menu-icon fa fa-check-square"></i><a href="font-themify.html">Register</a></li>
                 </ul>
@@ -41,7 +41,7 @@
                 <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
             </li>
             <li class="menu-item-has-children dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
                 <ul class="sub-menu children dropdown-menu">
                     <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
                     <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
@@ -50,7 +50,7 @@
             </li>
 
             <li class="menu-item-has-children dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
                 <ul class="sub-menu children dropdown-menu">
                     <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
                     <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
@@ -59,7 +59,7 @@
 
             <li class="menu-title">KHÁC</li>
             <li class="menu-item-has-children dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-glass"></i>Pages</a>
                 <ul class="sub-menu children dropdown-menu">
                     <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
                     <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>

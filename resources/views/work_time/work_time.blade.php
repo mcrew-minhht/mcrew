@@ -138,7 +138,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <strong class="card-title m-0">{{ $month }}/Search/{{ $searchName }}</strong>
             <div class="pull-right">
-                <button type="button" class="btn btn-primary toggleE1 pdfDBtn3" data-month="{{$month}}" data-userId="{{$listUID}}">Export PDF</button>
+                <button type="button" class="btn btn-primary toggleE1 pdfDBtn3 {{ count($grandResult) ? '' : 'd-n'}}" data-month="{{$month}}" data-userId="{{$listUID}}" >Export PDF</button>
             </div>
         </div>
         <div class="card-body">
@@ -163,7 +163,7 @@
                     @endforeach
                     @else
                     <tr>
-                        <td>No Data</td>
+                        <td colspan="4" class="t-center">No Data</td>
                     </tr>
                     @endif
                 </tbody>
@@ -176,6 +176,7 @@
 
 @section('js')
 <script>
+    var totalGrandResult = {{ isset($grandResult) ? count($grandResult) : 0 }};
     var WORK_TIME = {};
     var result = <?php
                     if (isset($result)) {
@@ -300,6 +301,7 @@
         });
 
         $('button.pdfDBtn3').click(function() {
+            if(totalGrandResult == 0) return;
             let month = $(this).attr('data-month');
             let userId = $(this).attr('data-userId');
             $('form#pdfDownloadForm input[name="month"]').val(month);
