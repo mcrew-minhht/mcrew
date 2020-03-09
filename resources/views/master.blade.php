@@ -63,7 +63,7 @@
     @yield('css')
 </head>
 
-<body>
+<body class="open">
 <aside id="left-panel" class="left-panel">
     @include('partials.sidebar')
 </aside>
