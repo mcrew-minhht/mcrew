@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\CompanyService;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -25,7 +26,7 @@ class CompanyController extends Controller
     /**
      * Search company with condition
      * @param $request
-     * @return void
+     * @return
      */
     public function search(Request $request)
     {
@@ -47,7 +48,7 @@ class CompanyController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  $request
-     * @return void
+     * @return any
      */
     public function store(Request $request)
     {
