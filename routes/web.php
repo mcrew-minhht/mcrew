@@ -34,6 +34,12 @@ Route::POST('/users/detail', 'UserController@detailView');
 Route::POST('/users/update', 'UserController@update');
 Route::get('/users/update/errors', 'UserController@updateError');
 
+Route::get('/projects/regist','ProjectController@registView')->name('registProject');
+Route::post('/projects/regist','ProjectController@regist')->name('saveProject');
+Route::get('/projects/search', 'ProjectController@searchView')->name('viewSearch');
+Route::post('/projects/search','ProjectController@search')->name('searchProject');
+Route::post('/projects/update','ProjectController@update')->name('updateProject');
+
 Route::resource('companies', 'CompanyController');
 Route::POST('/companies/store', 'CompanyController@store');
 Route::POST('/companies/search', 'CompanyController@search');
