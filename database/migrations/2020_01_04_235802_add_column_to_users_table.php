@@ -18,7 +18,7 @@ class AddColumnToUsersTable extends Migration
             $table->char('identity', 10)->nullable()->after('birthday');
             $table->dateTime('identity_date')->nullable()->after('identity');
             $table->char('identity_place', 255)->nullable()->after('identity_date');
-            $table->integer('phone_number')->nullable()->after('identity_place');
+            $table->char('phone_number', 11)->nullable()->after('identity_place');
             $table->char('current_address', 255)->nullable()->after('phone_number');
             $table->char('regularly_address', 255)->nullable()->after('current_address');
             $table->dateTime('join_company_date')->nullable()->after('regularly_address');

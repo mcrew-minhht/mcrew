@@ -22,19 +22,19 @@ class UsersTableSeeder extends Seeder
             'email' => 'user1@gmail.com',
             'password' => Hash::make('user1'),
             'name' => 'Nguyen Van Nhan',
-            'role' => 1,
+            'role' => 2,
             ],
             [
             'email' => 'user2@gmail.com',
             'password' => Hash::make('user2'),
             'name' => 'Nhan Nguyen Van',
-            'role' => 1,
+            'role' => 2,
             ],
             [
             'email' => 'user3@gmail.com',
             'password' => Hash::make('user3'),
             'name' => 'Van Nguyen Nhan',
-            'role' => 1,
+            'role' => 2,
             ],
         ]);
     }

@@ -9,6 +9,10 @@
 @endsection
 
 @section('content')
+<?php
+$role = Auth::user()->role;
+$preventMember = $role == Constants::USER_ROLE_MEMBER
+?>
 <section class="content">
     <form action="{{asset('work_time/search')}}" method="POST" id="searchForm">
         <div class="card">
@@ -17,18 +21,20 @@
             </div>
             <div class="card-body">
                 @csrf
-                <div class="row">
-                    <div class="col-xs-6 col-md-4">
-                        <div class="form-group">
-                            <label>Target</label>
-                            <select name="target" class="form-control">
-                                @foreach($targetSelectData as $k=>$i)
-                                <option value="{{$k}}">{{$i}}</option>
-                                @endforeach
-                            </select>
+                @if(!$preventMember)
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group">
+                                <label>Target</label>
+                                <select name="target" class="form-control">
+                                    @foreach($targetSelectData as $k=>$i)
+                                    <option value="{{$k}}">{{$i}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 <div class="row">
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
@@ -58,74 +64,74 @@
         </div>
     </form>
     @if(isset($result) || isset($grandResult))
-        <form action="{{asset('work_time/search')}}" method="POST" id="pdfDownloadForm">@csrf
-            <input type="hidden" name="isDownloadPdf" value="true">
-            <input type="hidden" name="month" value="{{ isset($month) ? $month : '' }}">
-            <input type="hidden" name="userId" value="{{ isset($userId) ? $userId : '' }}">
-            <input type="hidden" name="userName" value="{{ isset($userName) ? $userName : '' }}">
-        </form>
+    <form action="{{asset('work_time/search')}}" method="POST" id="pdfDownloadForm">@csrf
+        <input type="hidden" name="isDownloadPdf" value="true">
+        <input type="hidden" name="month" value="{{ isset($month) ? $month : '' }}">
+        <input type="hidden" name="userId" value="{{ isset($userId) ? $userId : '' }}">
+        <input type="hidden" name="userName" value="{{ isset($userName) ? $userName : '' }}">
+    </form>
     @endif
 
     @if(isset($result))
-        <div class="card">
-            <form action="{{asset('work_time/save')}}" method="POST" id="saveForm">@csrf
-                <input name="monthYear" type="hidden" value='{{$month}}'>
-                <input name="userId" type="hidden" value='{{$userId}}'>
-                <input type="hidden" name="userName" value="{{ $userName }}">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <strong class="card-title m-0">{{ $month }}/{{ $userName }}</strong>
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-primary mr-10 editModeBtn toggleE1">Edit Mode</button>
-                        <button type="button" class="btn btn-primary toggleE1 pdfDBtn">Export PDF</button>
-                        <button type="button" class="btn btn-danger mr-10 toggleE2 resetBtn">Reset</button>
-                        <button type="submit" class="btn btn-success toggleE2">Save</button>
-                    </div>
+    <div class="card">
+        <form action="{{asset('work_time/save')}}" method="POST" id="saveForm">@csrf
+            <input name="monthYear" type="hidden" value='{{$month}}'>
+            <input name="userId" type="hidden" value='{{$userId}}'>
+            <input type="hidden" name="userName" value="{{ $userName }}">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <strong class="card-title m-0">{{ $month }}/{{ $userName }}</strong>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary mr-10 editModeBtn toggleE1">Edit Mode</button>
+                    <button type="button" class="btn btn-primary toggleE1 pdfDBtn">Export PDF</button>
+                    <button type="button" class="btn btn-danger mr-10 toggleE2 resetBtn">Reset</button>
+                    <button type="submit" class="btn btn-success toggleE2">Save</button>
                 </div>
-                <div class="card-body">
-                    <table class="table table-bordered w-m-700p">
-                        <thead>
-                            <tr>
-                                <th>Day</th>
-                                <th>Day Of Week</th>
-                                <th>Time Of Work(h)</th>
-                                <th>Project</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dynamicBody1">
-                            @if( count($result) )
-                            @foreach( $result as $i )
-                            <tr>
-                                <td>{{ $i['day'] }}</td>
-                                <td>{{ $i['dayOfWeek'] }}</td>
-                                <td>
-                                    <span class="toggleE1">{{ $i['time'] }}</span>
-                                    <input name="time[]" type="number" class="toggleE2" value="{{ $i['time'] }}">
-                                </td>
-                                <td>
-                                    <span class="toggleE1">{{ $i['projectName'] }}</span>
-                                    <select name="projects[]" class="toggleE2">
-                                        @foreach( $projects as $p )
-                                        <option value="{{$p->id}}" {{ $i['projectID'] == $p->id ? 'selected' : '' }}>{{$p->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="2">Total: </td>
-                                <td id="timeSum">{{$totalWorkTime}}</td>
-                                <td></td>
-                            </tr>
-                            @else
-                            <tr>
-                                <td>No Data</td>
-                            </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered w-m-700p">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Day Of Week</th>
+                            <th>Time Of Work(h)</th>
+                            <th>Project</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dynamicBody1">
+                        @if( count($result) )
+                        @foreach( $result as $i )
+                        <tr>
+                            <td>{{ $i['day'] }}</td>
+                            <td>{{ $i['dayOfWeek'] }}</td>
+                            <td>
+                                <span class="toggleE1">{{ $i['time'] }}</span>
+                                <input name="time[]" type="number" class="toggleE2" value="{{ $i['time'] }}">
+                            </td>
+                            <td>
+                                <span class="toggleE1">{{ $i['projectName'] }}</span>
+                                <select name="projects[]" class="toggleE2">
+                                    @foreach( $projects as $p )
+                                    <option value="{{$p->id}}" {{ $i['projectID'] == $p->id ? 'selected' : '' }}>{{$p->name}}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="2">Total: </td>
+                            <td id="timeSum">{{$totalWorkTime}}</td>
+                            <td></td>
+                        </tr>
+                        @else
+                        <tr>
+                            <td>No Data</td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
     @endif
 
     @if(isset($grandResult))
@@ -138,7 +144,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <strong class="card-title m-0">{{ $month }}/Search/{{ $searchName }}</strong>
             <div class="pull-right">
-                <button type="button" class="btn btn-primary toggleE1 pdfDBtn3 {{ count($grandResult) ? '' : 'd-n'}}" data-month="{{$month}}" data-userId="{{$listUID}}" >Export PDF</button>
+                <button type="button" class="btn btn-primary toggleE1 pdfDBtn3 {{ count($grandResult) ? '' : 'd-n'}}" data-month="{{$month}}" data-userId="{{$listUID}}">Export PDF</button>
             </div>
         </div>
         <div class="card-body">
@@ -176,7 +182,7 @@
 
 @section('js')
 <script>
-    var totalGrandResult = {{ isset($grandResult) ? count($grandResult) : 0 }};
+    var totalGrandResult = {{isset($grandResult) ? count($grandResult) : 0}};
     var WORK_TIME = {};
     var result = <?php
                     if (isset($result)) {
@@ -301,7 +307,7 @@
         });
 
         $('button.pdfDBtn3').click(function() {
-            if(totalGrandResult == 0) return;
+            if (totalGrandResult == 0) return;
             let month = $(this).attr('data-month');
             let userId = $(this).attr('data-userId');
             $('form#pdfDownloadForm input[name="month"]').val(month);

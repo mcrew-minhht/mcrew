@@ -1,16 +1,15 @@
 @extends('master')
 
-@section('pageTitle', 'MCREW TECH')
-
 @section('content')
 <section class="content">
-    <form action="{{asset('users/search/submit')}}" method="POST" id="searchForm">
-        <div class="card">
-            <div class="card-header">
-                <strong class="card-title">Search User</strong>
-            </div>
-            <div class="card-body">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Update User</strong>
+        </div>
+        <div class="card-body">
+            <form action="{{asset('users/update')}}" method="POST" id="submitForm">
                 @csrf
+                <input type="hidden" name="id" value="{{old('id', '')}}">
                 <div class="row">
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
@@ -133,70 +132,36 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer-o1">
-                <button class="btn btn-primary pull-right">
-                    Search
-                </button>
-            </div>
+            </form>
         </div>
-    </form>
-    @if(isset($list))
-    <form action="{{asset('users/detail')}}" method="post"  id="detailForm">
-        <input type="hidden" name="id">
-        @csrf
-    </form>
-    <div class="card">
-        <div class="card-header">
-            <strong class="card-title">Search list</strong>
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">Name</th>
-                        <th class="text-center">Email</th>
-                        <th class="text-center">Identity</th>
-                        <th class="text-center">Phone Number</th>
-                        <th class="text-center">Current Address</th>
-                        <th class="text-center">Birthday</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(count($list))
-                    @foreach($list as $i)
-                    <tr>
-                        <td>{{$i->name}}</td>
-                        <td>{{$i->email}}</td>
-                        <td>{{$i->identity}}</td>
-                        <td>{{$i->phone_number}}</td>
-                        <td>{{$i->current_address}}</td>
-                        <td>{{explode(' ', $i->birthday)[0]}}</td>
-                        <td class="t-center">
-                            <btn class="btn btn-info detailBtn" user-id="{{$i->id}}">Detail</btn>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @else
-                    <tr class="text-center">
-                        <td colspan="7">No Data</td>
-                    </tr>
-                    @endif
-                </tbody>
-            </table>
+        <div class="card-footer-o1">
+            <button class="btn btn-primary pull-right" id="submitBtn">
+                Submit
+            </button>
         </div>
     </div>
-    @endif
 </section>
 @endsection
 
 @section('js')
 <script>
     $(document).ready(function() {
-        $('.detailBtn').click(function(){
-            $('#detailForm').find('input[name="id"]').val($(this).attr('user-id'));
-            $('#detailForm').submit();
+        var isOrigin = '<?php echo isset($userInfo) ?>';
+        var userInfo = null;
+        if (isOrigin) {
+            userInfo = <?php if(isset($userInfo)) echo json_encode($userInfo); else echo json_encode((object) []); ?>;
+            let submitForm = $('#submitForm');
+            for (const key in userInfo) {
+                if(key == 'role'){
+                    $('select[name="role"]').find('option[value="'+userInfo[key]+'"]').attr('selected', true);
+                }else{
+                    submitForm.find('input[name="' + key + '"]').val(userInfo[key]);
+                }
+            }
+        }
+
+        $('#submitBtn').click(function(){
+            $('#submitForm').submit();
         });
     });
 </script>

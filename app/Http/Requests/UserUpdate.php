@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRegist extends FormRequest
+class UserUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,12 +22,15 @@ class UserRegist extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $requests)
     {
+        $this->redirect = '/users/update/errors';
+
         return [
+            'id' => 'required',
+
             'name' => 'bail|required|between:0,255',
-            'email' => 'bail|required|between:0,255|unique:users,email',
-            'password' => 'bail|required|between:0,255',
+            'email' => 'bail|required|between:0,255'. ($requests->id ? '|unique:users,email,'.$requests->id : ''),
             'birthday' => 'date|nullable',
             'identity' => 'between:0,10',
             'identity_date' => 'date|nullable',

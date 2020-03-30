@@ -24,18 +24,21 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/users/regist', 'UserController@registView');
-Route::POST('/users/regist/save', 'UserController@regist');
-Route::get('/users/search', 'UserController@searchView');
-Route::POST('/users/search/submit', 'UserController@search');
+Route::get('/users/regist', 'UserController@registView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::POST('/users/regist/save', 'UserController@regist')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::get('/users/search', 'UserController@searchView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::POST('/users/search/submit', 'UserController@search')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::POST('/users/detail', 'UserController@detailView');
+Route::POST('/users/update', 'UserController@update');
+Route::get('/users/update/errors', 'UserController@updateError');
 
 Route::resource('companies', 'CompanyController');
 Route::POST('/companies/store', 'CompanyController@store');
 Route::POST('/companies/search', 'CompanyController@search');
 
 Route::get('/work_time', 'WorkTimeController@index');
-Route::post('/work_time/search', 'WorkTimeController@search');
-Route::post('/work_time/save', 'WorkTimeController@save');
+Route::post('/work_time/search', 'WorkTimeController@search')->middleware('WorktimeAuthentication');
+Route::post('/work_time/save', 'WorkTimeController@save')->middleware('WorktimeAuthentication');
 
 
 Route::get('logout', 'Auth\LoginController@logout');

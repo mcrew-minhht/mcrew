@@ -22,10 +22,9 @@ class WorkTimeController extends Controller
     }
     
     public function search(Request $request, $monthYear = ''){
-        
         //stupid -> remove it
         $user = Auth::user();
-        
+
         $targetSelectData = [
             Constants::WT_TARGET_0 => 'Me',
             Constants::WT_TARGET_1 => 'Other guys',
@@ -55,13 +54,11 @@ class WorkTimeController extends Controller
                 ]);
             })
             ->get();
-
             
             $listUID =  [];
             foreach($grandResult as $y1){
                 array_push($listUID, $y1->user_id);
             }
-
 
             return view('work_time.work_time', [
                 'grandResult' => $grandResult,
