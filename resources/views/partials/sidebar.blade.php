@@ -23,6 +23,13 @@
                 <a href="work_time"> <i class="menu-icon ti-email"></i>Work Time</a>
             </li>
             <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Customers</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-search"></i><a href="customers/search">List</a></li>
+                    <li><i class="menu-icon fa fa-check-square"></i><a href="customers/regist">Register</a></li>
+                </ul>
+            </li>
+            <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Device</a>
                 <ul class="sub-menu children dropdown-menu">
                     <li><i class="menu-icon fa fa-search"></i><a href="font-fontawesome.html">List</a></li>

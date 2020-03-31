@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserDetail extends FormRequest
+class CustomersUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +22,13 @@ class UserDetail extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $requests)
     {
-        $this->redirect = '/404';
+        $this->redirect = '/customers/update/errors';
+
         return [
             'id' => 'required',
+            'name' => 'bail|required|between:0,100',
         ];
     }
 

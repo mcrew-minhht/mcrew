@@ -61,7 +61,6 @@ class UserController extends Controller
         return view('users.search');
     }
 
-
     public function search(UserSearch $request)
     {
         $searchData = [
@@ -95,11 +94,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function detailView(UserDetail $request, $userId = null)
+    public function detailView(UserDetail $request)
     {   
-        if($userId === null){
-            $userId = $request->id;
-        }
+        $userId = $request->id;
         $userInfo = DB::table('users')->select(
             'id',
             'name',

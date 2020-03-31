@@ -12,8 +12,8 @@ class ProjectsTableSeeder extends Seeder
     public function run()
     {
         DB::table('projects')->insert([
-            ['name' => 'Theatre',],
-            ['name' => "Vinh's API",],
+            ['name' => 'Theatre', 'customer_id' => '1'],
+            ['name' => "Vinh's API", 'customer_id' => '2'],
         ]);
     }
 }

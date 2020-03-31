@@ -24,6 +24,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/404', 'CustomController@notFound');
+
 Route::get('/users/regist', 'UserController@registView')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::POST('/users/regist/save', 'UserController@regist')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::get('/users/search', 'UserController@searchView')->middleware(Constants::AUTHORIZE_ADMIN);
@@ -39,6 +41,14 @@ Route::POST('/companies/search', 'CompanyController@search');
 Route::get('/work_time', 'WorkTimeController@index');
 Route::post('/work_time/search', 'WorkTimeController@search')->middleware('WorktimeAuthentication');
 Route::post('/work_time/save', 'WorkTimeController@save')->middleware('WorktimeAuthentication');
+
+Route::get('/customers/regist', 'CustomersController@registView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::post('/customers/regist/save', 'CustomersController@regist')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::get('/customers/search', 'CustomersController@searchView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::post('/customers/search/submit', 'CustomersController@search')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::post('/customers/detail', 'CustomersController@detailView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::POST('/customers/update', 'CustomersController@update')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::get('/customers/update/errors', 'CustomersController@updateError')->middleware(Constants::AUTHORIZE_ADMIN);
 
 
 Route::get('logout', 'Auth\LoginController@logout');
