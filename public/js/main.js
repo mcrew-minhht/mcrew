@@ -86,18 +86,4 @@ $(document).ready(function($) {
 
     });
 
-    $('.modelUpdateProject').click(function() {
-        var nameProject = $(this).parents('tr').find('.nameProject').text();
-
-        var idProject = $(this).data('id');
-
-        $('#uProjectForm input[name="project_id"]').val(idProject);
-
-        $('#uProjectForm input[name="project_name"]').val(nameProject);
-
-        $("#sProjectModal").modal('show');
-
-    });
-
-
 });

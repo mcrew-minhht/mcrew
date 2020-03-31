@@ -38,6 +38,7 @@ Route::get('/projects/regist','ProjectController@registView')->name('registProje
 Route::post('/projects/regist','ProjectController@regist')->name('saveProject');
 Route::get('/projects/search', 'ProjectController@searchView')->name('viewSearch');
 Route::post('/projects/search','ProjectController@search')->name('searchProject');
+Route::get('/projects/detail/{id}', 'ProjectController@detailView')->name('detailProject');
 Route::post('/projects/update','ProjectController@update')->name('updateProject');
 
 Route::resource('companies', 'CompanyController');

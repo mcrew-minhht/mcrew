@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectRegist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProjectUpdate;
@@ -24,7 +25,7 @@ class ProjectController extends Controller
         return view('projects.regist');
     }
 
-    public function regist(Request $request)
+    public function regist(ProjectRegist $request)
     {
 
         $data = [
@@ -44,8 +45,7 @@ class ProjectController extends Controller
 
     public function search(Request $request)
     {
-
-            $name = $request->input('name');
+        $name = $request->input('nameSearch');
 
         $project  = DB::table('projects')
                     ->where('name', 'LIKE', "%{$name}%")
@@ -56,26 +56,42 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function detailView($id)
+    {
+        $projectInfo = DB::table('projects')->select(
+            'id',
+            'name'
+        )->where('id', '=', $id)->get()[0];
+
+
+        $users = DB::table('users')->get();
+
+        return view('projects.update', [
+            'projectInfo' => $projectInfo,'users'=>$users
+        ]);
+    }
+
     public function update(ProjectUpdate $request)
     {
-
         $data = [
-            'name' => $request->input('project_name')
+            'name' => $request->input('name')
         ];
 
-        DB::table('projects')->where('id', $request->project_id)->update(
+        DB::table('projects')->where('id', $request->id)->update(
             $data
         );
 
-        $project = DB::table('projects')->select(
+        $projectInfo = DB::table('projects')->select(
             'id',
             'name'
-        )->where('id', '=', $request->project_id)->get();
+        )->where('id', '=', $request->id)->get()[0];
+
+        $users = DB::table('users')->get();
 
         $request->session()->flash('success', 'Update has been completed.');
 
-        return view('projects.search', [
-            'list' => $project
+        return view('projects.update', ['projectInfo'=>$projectInfo,
+            'users' => $users
         ]);
 
     }

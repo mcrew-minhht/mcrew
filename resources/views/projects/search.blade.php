@@ -5,18 +5,19 @@
 @section('content')
     <section class="content">
         <form action="{{route('searchProject')}}" method="POST" id="searchForm">
+            @csrf
             <div class="card">
                 <div class="card-header">
                 <strong class="card-title">Search User</strong>
                 </div>
                 <div class="card-body">
-                    @csrf
+
                     <div class="row">
                         <div class="col-xs-6 col-md-12">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" name="name" value="{{old('name', '')}}">
-                                @error('name')
+                                <input type="text" class="form-control" name="nameSearch" >
+                                @error('nameSearch')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -31,6 +32,10 @@
             </div>
         </form>
         @if(isset($list))
+        <form action="{{asset('projects/detail')}}" method="post"  id="detailForm">
+            <input type="hidden" name="id">
+            @csrf
+        </form>
             <div class="card">
                 <div class="card-header">
                     <strong class="card-title">Search list</strong>
@@ -52,7 +57,7 @@
                                     <td class="nameProject">{{$vProject->name}}</td>
                                     <td>
                                         <div class="perfect-center-ctn">
-                                            <a href="javascript:void(0)"  data-id="{{$vProject->id}}" class="btn btn-info modelUpdateProject">Update</a>
+                                            <a href="{{route('detailProject',$vProject->id)}}" class="btn btn-info updateProject">Update</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -66,40 +71,17 @@
                     </table>
                 </div>
             </div>
-            <div class="modal fade modal headerModal" id="sProjectModal" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-center bold">Delete the resource confirmation</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body text-center font-s12">
-                            <form action="{{asset('projects/update')}}" method="post" id="uProjectForm">
-                                @csrf
-                                <p>
-                                    <input type="text" class="form-control" name="project_name">
-                                </p>
-                                <div class="clearfix"></div>
-                                <div class="d-flex-justify-center">
-                                    <input type="hidden" name="project_id">
-                                    <button type="button" class="btn btn-violet" data-dismiss="modal">Cancel</button>
-                                    <button  class="btn btn-violet mr-5">Ok</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         @endif
     </section>
 @endsection
 
 @section('js')
-    <script>
-        $(document).ready(function () {
-
+<script>
+    $(document).ready(function() {
+        $('.updateProject').click(function(){
+            $('#detailForm').find('input[name="id"]').val($(this).attr('project-id'));
+            $('#detailForm').submit();
         });
-    </script>
+    });
+</script>
 @endsection

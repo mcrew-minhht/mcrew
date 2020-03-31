@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectUpdate extends FormRequest
+class ProjectRegist extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +21,10 @@ class ProjectUpdate extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $requests)
+    public function rules()
     {
-
-        $this->redirect = route('detailProject', ['id' => $requests->id]);
-
         return [
-            'name' => 'bail|required',
+            'name' => 'bail|required'
         ];
     }
 
