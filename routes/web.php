@@ -44,6 +44,10 @@ Route::post('/projects/remove/user', 'ProjectController@destroy');
 
 Route::get('/salary/search','SalaryController');
 Route::post('/salary/search','SalaryController@search')->name('searchSalary');
+Route::get('/salary/regist','SalaryController@registView');
+Route::post('/salary/regist','SalaryController@regist')->name('saveSalary');
+Route::get('/salary/detail/{id}', 'SalaryController@detailView')->name('detailSalary');
+Route::post('/salary/update','SalaryController@update')->name('updateSalary');
 
 Route::resource('companies', 'CompanyController');
 Route::POST('/companies/store', 'CompanyController@store');
