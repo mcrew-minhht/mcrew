@@ -95,7 +95,7 @@ class UserController extends Controller
     }
 
     public function detailView(UserDetail $request)
-    {   
+    {
         $userId = $request->id;
         $userInfo = DB::table('users')->select(
             'id',
@@ -112,23 +112,23 @@ class UserController extends Controller
             'regularly_address',
             'join_company_date',
             'company_staff_date',
-            'role',
+            'role'
         )->where('id', '=', $userId)->get()[0];
         $userInfo->birthday = !empty($userInfo->birthday) ? date('Y-m-d', strtotime($userInfo->birthday)) : '';
         $userInfo->identity_date = !empty($userInfo->identity_date) ? date('Y-m-d', strtotime($userInfo->identity_date)) : '';
         $userInfo->join_company_date = !empty($userInfo->join_company_date) ? date('Y-m-d', strtotime($userInfo->join_company_date)) : '';
         $userInfo->company_staff_date = !empty($userInfo->company_staff_date) ? date('Y-m-d', strtotime($userInfo->company_staff_date)) : '';
-        
+
         return view('users.update', [
             'userInfo' => $userInfo
         ]);
     }
 
     public function updateError()
-    {   
+    {
         return view('users.update');
     }
-    
+
     public function update(UserUpdate $request)
     {
         $data = [
@@ -166,7 +166,7 @@ class UserController extends Controller
             'regularly_address',
             'join_company_date',
             'company_staff_date',
-            'role',
+            'role'
         )->where('id', '=', $request->id)->get()[0];
         $userInfo->birthday = !empty($userInfo->birthday) ? date('Y-m-d', strtotime($userInfo->birthday)) : '';
         $userInfo->identity_date = !empty($userInfo->identity_date) ? date('Y-m-d', strtotime($userInfo->identity_date)) : '';

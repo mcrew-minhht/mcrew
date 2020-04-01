@@ -66,8 +66,16 @@ class ProjectController extends Controller
 
         $users = DB::table('users')->get();
 
+        $userProject = DB::table('projects')
+            ->join('user_projects', 'projects.id', '=', 'user_projects.project_id')
+            ->join('users', 'users.id', '=', 'user_projects.user_id')
+            ->select('users.*')
+            ->get();
+
         return view('projects.update', [
-            'projectInfo' => $projectInfo,'users'=>$users
+            'projectInfo' => $projectInfo,
+            'users'=>$users,
+            'userProject'=>$userProject
         ]);
     }
 
@@ -77,9 +85,26 @@ class ProjectController extends Controller
             'name' => $request->input('name')
         ];
 
+        $userId =  $request->user;
+
         DB::table('projects')->where('id', $request->id)->update(
             $data
         );
+
+        foreach ($userId as  $vUser) {
+            $data = [
+                'user_id' => $vUser,
+                'project_id'=> $request->id
+            ];
+
+            $exists = DB::table('user_projects')->where('user_id','=',$vUser)->exists();
+
+            if (!$exists) {
+                DB::table('user_projects')->insert(
+                    $data
+                );
+            }
+        }
 
         $projectInfo = DB::table('projects')->select(
             'id',
@@ -88,11 +113,30 @@ class ProjectController extends Controller
 
         $users = DB::table('users')->get();
 
+        $userProject = DB::table('projects')
+            ->join('user_projects', 'projects.id', '=', 'user_projects.project_id')
+            ->join('users', 'users.id', '=', 'user_projects.user_id')
+            ->select('users.*')
+            ->get();
         $request->session()->flash('success', 'Update has been completed.');
 
-        return view('projects.update', ['projectInfo'=>$projectInfo,
-            'users' => $users
+        return view('projects.update', [
+            'projectInfo'=>$projectInfo,
+            'userProject' => $userProject,
+            'users'=>$users
         ]);
 
+    }
+
+    public function destroy(Request $request)
+    {
+        DB::table('user_projects')
+            ->where('user_id','=',$request->id)
+            ->where('project_id','=',$request->idProject)
+            ->delete();
+
+        $request->session()->flash('success', 'Deleted has been success.');
+
+        return $this->detailView($request->idProject);
     }
 }
