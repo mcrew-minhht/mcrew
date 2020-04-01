@@ -36,11 +36,14 @@ Route::get('/users/update/errors', 'UserController@updateError');
 
 Route::get('/projects/regist','ProjectController@registView')->name('registProject');
 Route::post('/projects/regist','ProjectController@regist')->name('saveProject');
-Route::get('/projects/search', 'ProjectController@searchView')->name('viewSearch');
+Route::get('/projects/search', 'ProjectController@searchView')->name('searchProject');
 Route::post('/projects/search','ProjectController@search')->name('searchProject');
 Route::get('/projects/detail/{id}', 'ProjectController@detailView')->name('detailProject');
 Route::post('/projects/update','ProjectController@update')->name('updateProject');
 Route::post('/projects/remove/user', 'ProjectController@destroy');
+
+Route::get('/salary/search','SalaryController');
+Route::post('/salary/search','SalaryController@search')->name('searchSalary');
 
 Route::resource('companies', 'CompanyController');
 Route::POST('/companies/store', 'CompanyController@store');
