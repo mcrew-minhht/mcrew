@@ -20,5 +20,12 @@ class Constants
         6 => 'Saturday',
     ];
 
+    // salary
+    const LUNCH_VALUE = 730000;
+    const BHXH = 8/100;
+    const BHYT = 1.5/100;
+    const BHTN = 1/100;
+    const BH_TOTAL = 10.5/100;
+    const DEPENDENT_PERSON = 3600000;
  
 }

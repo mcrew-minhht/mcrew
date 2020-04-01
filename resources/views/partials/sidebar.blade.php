@@ -29,6 +29,9 @@
                     <li><i class="menu-icon fa fa-check-square"></i><a href="customers/regist">Register</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="salary/calc"> <i class="menu-icon ti-email"></i>salary_calc</a>
+            </li>
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Device</a>
                 <ul class="sub-menu children dropdown-menu">

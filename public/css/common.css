@@ -64,6 +64,9 @@ div.box{
 }
 
 /* padding */
+.pt-10{
+    padding-top: 10px;
+}
 
 
 /* width */
@@ -100,11 +103,20 @@ div.box{
 .w-m-700p{
     min-width: 700px;
 }
+.w-500p{
+    width: 500px;
+}
 .w-400p{
     width: 400px;
 }
 .w-300p{
     width: 300px;
+}
+.w-200p{
+    width: 200px;
+}
+.w-150p{
+    width: 150px;
 }
 .w-100p{
     width: 100px;
@@ -133,6 +145,10 @@ div.box{
 .t-center{
     text-align: center;
 }
+.t-x-y-center{
+    text-align: center !important;
+    vertical-align: middle !important;
+}
 
 
 /* border styles */
@@ -148,7 +164,16 @@ div.box{
     border: 1px solid black;
 }
 
+/* container styles */
+.ctn-scroll-x-auto-900{
+    margin: auto;
+    overflow-x: auto;
+}
+
 /* table styles */
+.table-fixed{
+    table-layout: fixed;
+}
 table.table-o1{
     width: 100%;
 }

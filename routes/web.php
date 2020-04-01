@@ -50,5 +50,8 @@ Route::post('/customers/detail', 'CustomersController@detailView')->middleware(C
 Route::POST('/customers/update', 'CustomersController@update')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::get('/customers/update/errors', 'CustomersController@updateError')->middleware(Constants::AUTHORIZE_ADMIN);
 
+Route::get('/salary/calc', 'SalaryController@calcView');
+Route::post('/salary/calc/search', 'SalaryController@calcSearch')->middleware(Constants::AUTHORIZE_ADMIN);
+
 
 Route::get('logout', 'Auth\LoginController@logout');

@@ -27,6 +27,11 @@ class Authenticate extends Middleware
 
         if (in_array(Auth::user()->role, $roles)) {
             return $next($request);
+        }else{
+            $path = $request->path();
+            if( $path == 'salary/calc/search' && !isset($_POST['name']) ){
+                return $next($request);
+            }
         }
 
         abort(404);

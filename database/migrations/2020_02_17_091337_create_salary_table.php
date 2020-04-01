@@ -20,10 +20,10 @@ class CreateSalaryTable extends Migration
             $table->bigInteger('salary');
             $table->bigInteger('number_of_dependents');
             $table->timestamps();
-            $table->bigInteger('created_user');
-            $table->bigInteger('updated_user');
+            $table->bigInteger('created_user')->nullable();
+            $table->bigInteger('updated_user')->nullable();
             $table->primary(['id', 'user_id']);
-            // $table->primary('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::table('salary', function (Blueprint $table) {
