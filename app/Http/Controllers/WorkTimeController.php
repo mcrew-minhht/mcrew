@@ -12,6 +12,9 @@ use ZipArchive;
 class WorkTimeController extends Controller
 {
     public function index(){
+        if(empty(session('errors'))){
+            session()->forget('_old_input');
+        }
         $targetSelectData = [
             Constants::WT_TARGET_0 => 'Me',
             Constants::WT_TARGET_1 => 'Other guys',
@@ -59,7 +62,7 @@ class WorkTimeController extends Controller
             foreach($grandResult as $y1){
                 array_push($listUID, $y1->user_id);
             }
-
+            session()->flash('_old_input', $_POST);
             return view('work_time.work_time', [
                 'grandResult' => $grandResult,
                 'searchName' => $searchName,
@@ -173,6 +176,7 @@ class WorkTimeController extends Controller
             foreach($result as $i2 => $v2){
                 $k2 = $i2;
             }
+            session()->flash('_old_input', $_POST);
             return view('work_time.work_time', [
                 'result' => $result[$k2]['data'],
                 'totalWorkTime' => $result[$k2]['totalWorkTime'],

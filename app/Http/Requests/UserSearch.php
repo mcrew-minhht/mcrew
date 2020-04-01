@@ -23,9 +23,10 @@ class UserSearch extends FormRequest
      */
     public function rules()
     {
+        $this->redirect = '/users/search';
         return [
             'name' => 'between:0,255',
-            'email' => 'between:0,255',
+            'email' => 'nullable|email|between:0,255',
             'birthday' => 'date|nullable',
             'identity' => 'between:0,10',
             'identity_date' => 'date|nullable',

@@ -7,6 +7,10 @@
             <strong class="card-title">Update User</strong>
         </div>
         <div class="card-body">
+            <form action="{{asset('users/detail')}}" method="post" id="resetForm">
+                @csrf
+                <input type="hidden" name="id" value="{{old('id', '')}}">
+            </form>
             <form action="{{asset('users/update')}}" method="POST" id="submitForm">
                 @csrf
                 <input type="hidden" name="id" value="{{old('id', '')}}">
@@ -135,9 +139,14 @@
             </form>
         </div>
         <div class="card-footer-o1">
-            <button class="btn btn-primary pull-right" id="submitBtn">
-                Submit
-            </button>
+            <div class=" pull-right">
+                <button type="button" class="btn btn-default" id="clearBtn">
+                    Clear
+                </button>
+                <button class="btn btn-primary pull-right" id="submitBtn">
+                    Submit
+                </button>
+            </div>
         </div>
     </div>
 </section>
@@ -149,19 +158,25 @@
         var isOrigin = '<?php echo isset($userInfo) ?>';
         var userInfo = null;
         if (isOrigin) {
-            userInfo = <?php if(isset($userInfo)) echo json_encode($userInfo); else echo json_encode((object) []); ?>;
+            userInfo = <?php if (isset($userInfo)) echo json_encode($userInfo);
+                        else echo json_encode((object) []); ?>;
             let submitForm = $('#submitForm');
+            let resetForm = $('#resetForm');
             for (const key in userInfo) {
-                if(key == 'role'){
-                    $('select[name="role"]').find('option[value="'+userInfo[key]+'"]').attr('selected', true);
-                }else{
+                if (key == 'role') {
+                    $('select[name="role"]').find('option[value="' + userInfo[key] + '"]').attr('selected', true);
+                } else {
                     submitForm.find('input[name="' + key + '"]').val(userInfo[key]);
+                    resetForm.find('input[name="' + key + '"]').val(userInfo[key]);
                 }
             }
         }
 
-        $('#submitBtn').click(function(){
+        $('#submitBtn').click(function() {
             $('#submitForm').submit();
+        });
+        $('#clearBtn').click(function(){
+            $('#resetForm').submit();
         });
     });
 </script>

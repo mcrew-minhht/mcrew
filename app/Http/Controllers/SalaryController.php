@@ -16,6 +16,9 @@ class SalaryController extends Controller
 {
     public function calcView()
     {
+        if(empty(session('errors'))){
+            session()->forget('_old_input');
+        }
         $user = Auth::user();
         $data = [
             "adFeature" => $user->role == Constants::USER_ROLE_ADMIN,
@@ -118,6 +121,7 @@ class SalaryController extends Controller
             "totalDayNotWeekend" => $totalDayNotWeekend,
             "dayGroup" => $dayGroup,
         ];
+        session()->flash('_old_input', $_POST);
         return view('salary.calc', $returnData);
     }
 

@@ -25,7 +25,7 @@ class UserRegist extends FormRequest
     {
         return [
             'name' => 'bail|required|between:0,255',
-            'email' => 'bail|required|between:0,255|unique:users,email',
+            'email' => 'bail|required|email|between:0,255|unique:users,email',
             'password' => 'bail|required|between:0,255',
             'birthday' => 'date|nullable',
             'identity' => 'between:0,10',

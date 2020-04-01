@@ -14,6 +14,9 @@ class CustomersController extends Controller
 {
     public function registView()
     {
+        if(empty(session('errors'))){
+            session()->forget('_old_input');
+        }
         return view('customers.regist');
     }
 
@@ -33,6 +36,9 @@ class CustomersController extends Controller
     
     public function searchView()
     {
+        if(empty(session('errors'))){
+            session()->forget('_old_input');
+        }
         return view('customers.search');
     }
 
@@ -50,6 +56,7 @@ class CustomersController extends Controller
 
         $customers = $customers->get();
 
+        session()->flash('_old_input', $_POST);
         return view('customers.search', [
             'list' => $customers
         ]);

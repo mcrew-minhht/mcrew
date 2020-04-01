@@ -4,6 +4,8 @@
 
 @section('content')
 <section class="content">
+    <form action="users/search" method="get" id="resetForm">
+    </form>
     <form action="{{asset('users/search/submit')}}" method="POST" id="searchForm">
         <div class="card">
             <div class="card-header">
@@ -135,9 +137,14 @@
                 </div>
             </div>
             <div class="card-footer-o1">
-                <button class="btn btn-primary pull-right">
-                    Search
-                </button>
+                <div class=" pull-right">
+                    <button type="button" class="btn btn-default" id="clearBtn">
+                        Clear
+                    </button>
+                    <button class="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
             </div>
         </div>
     </form>
@@ -197,6 +204,9 @@
         $('.detailBtn').click(function(){
             $('#detailForm').find('input[name="id"]').val($(this).attr('user-id'));
             $('#detailForm').submit();
+        });
+        $('#clearBtn').click(function() {
+            $('#resetForm').submit();
         });
     });
 </script>

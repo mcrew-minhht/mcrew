@@ -30,7 +30,7 @@ class UserUpdate extends FormRequest
             'id' => 'required',
 
             'name' => 'bail|required|between:0,255',
-            'email' => 'bail|required|between:0,255'. ($requests->id ? '|unique:users,email,'.$requests->id : ''),
+            'email' => 'bail|required|email|between:0,255'. ($requests->id ? '|unique:users,email,'.$requests->id : ''),
             'birthday' => 'date|nullable',
             'identity' => 'between:0,10',
             'identity_date' => 'date|nullable',

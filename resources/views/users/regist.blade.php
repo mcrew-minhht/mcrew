@@ -7,6 +7,8 @@
             <strong class="card-title">Regist User</strong>
         </div>
         <div class="card-body">
+            <form action="{{asset('users/regist')}}" method="get" id="resetForm">
+            </form>
             <form action="{{asset('users/regist/save')}}" method="POST" id="submitForm">
                 @csrf
                 <div class="row">
@@ -143,18 +145,26 @@
             </form>
         </div>
         <div class="card-footer-o1">
-            <button class="btn btn-primary pull-right" id="submitBtn">
-                Submit
-            </button>
+            <div class=" pull-right">
+                <button type="button" class="btn btn-default" id="clearBtn">
+                    Clear
+                </button>
+                <button class="btn btn-primary pull-right" id="submitBtn">
+                    Submit
+                </button>
+            </div>
         </div>
     </div>
 </section>
 @endsection
 
 @section('js')
-    <script>
-        $('#submitBtn').click(function(){
-            $('#submitForm').submit();
-        });
-    </script>
+<script>
+    $('#submitBtn').click(function() {
+        $('#submitForm').submit();
+    });
+    $('#clearBtn').click(function() {
+        $('#resetForm').submit();
+    });
+</script>
 @endsection

@@ -26,6 +26,9 @@ class UserController extends Controller
 
     public function registView()
     {
+        if(empty(session('errors'))){
+            session()->forget('_old_input');
+        }
         return view('users.regist');
     }
 
@@ -58,6 +61,9 @@ class UserController extends Controller
 
     public function searchView()
     {
+        if(empty(session('errors'))){
+            session()->forget('_old_input');
+        }
         return view('users.search');
     }
 
@@ -89,6 +95,8 @@ class UserController extends Controller
 
         $users = $users->get();
 
+        session()->flash('_old_input', $_POST);
+        
         return view('users.search', [
             'list' => $users
         ]);
@@ -96,6 +104,7 @@ class UserController extends Controller
 
     public function detailView(UserDetail $request)
     {
+        // dd(1);
         $userId = $request->id;
         $userInfo = DB::table('users')->select(
             'id',

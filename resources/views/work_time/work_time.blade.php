@@ -14,6 +14,8 @@ $role = Auth::user()->role;
 $preventMember = $role == Constants::USER_ROLE_MEMBER
 ?>
 <section class="content">
+    <form action="work_time" method="get" id="resetForm">
+    </form>
     <form action="{{asset('work_time/search')}}" method="POST" id="searchForm">
         <div class="card">
             <div class="card-header">
@@ -22,33 +24,34 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
             <div class="card-body">
                 @csrf
                 @if(!$preventMember)
-                    <div class="row">
-                        <div class="col-xs-6 col-md-4">
-                            <div class="form-group">
-                                <label>Target</label>
-                                <select name="target" class="form-control">
-                                    @foreach($targetSelectData as $k=>$i)
-                                    <option value="{{$k}}">{{$i}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                <div class="row">
+                    <div class="col-xs-6 col-md-4">
+                        <div class="form-group">
+                            <label>Target</label>
+                            <select name="target" class="form-control">
+                                @foreach($targetSelectData as $k=>$i)
+
+                                <option value="{{$k}}" {{ old('target', '') == $k ? 'selected' : ''}}>{{$i}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
+                </div>
                 @endif
                 <div class="row">
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
                             <label>Month</label>
-                            <input type="month" class="form-control" name="month" value="" required>
+                            <input type="month" class="form-control" name="month" value="{{old('month', '')}}" required>
                             @error('month')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-xs-6 col-md-4 nameInputCtn d-n">
+                    <div class="col-xs-6 col-md-4 nameInputCtn">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" name="name" value="">
+                            <input type="text" class="form-control" name="name" value="{{old('name', '')}}">
                             @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -57,9 +60,14 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                 </div>
             </div>
             <div class="card-footer-o1">
-                <button class="btn btn-primary pull-right">
-                    search
-                </button>
+                <div class=" pull-right">
+                    <button type="button" class="btn btn-default" id="clearBtn">
+                        Clear
+                    </button>
+                    <button class="btn btn-primary pull-right">
+                        search
+                    </button>
+                </div>
             </div>
         </div>
     </form>
@@ -182,7 +190,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
 
 @section('js')
 <script>
-    var totalGrandResult = {{isset($grandResult) ? count($grandResult) : 0}};
+    var totalGrandResult = <?php $a1 = isset($grandResult) ? count($grandResult) : 0; echo $a1; ?>;
     var WORK_TIME = {};
     var result = <?php
                     if (isset($result)) {
@@ -286,6 +294,16 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
         WORK_TIME.sum();
         WORK_TIME.toggleInputNameCtn();
         WORK_TIME.toOtherDetail();
+
+        if ($('select[name="target"]').val() != 1) {
+            $('.nameInputCtn').addClass('d-n');
+        } else {
+            $('.nameInputCtn').removeClass('d-n');
+        };
+
+        $('#clearBtn').click(function() {
+            $('#resetForm').submit();
+        });
 
         $('button.editModeBtn').click(function() {
             $('input.toggleE2, select.toggleE2, button.toggleE2').css('display', 'inline-block');
