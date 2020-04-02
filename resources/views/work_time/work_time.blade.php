@@ -58,9 +58,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer-o1">
-                <div class=" pull-right">
+                <div class="text-right">
                     <button type="button" class="btn btn-default" id="clearBtn">
                         Clear
                     </button>

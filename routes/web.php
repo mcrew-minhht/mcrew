@@ -26,9 +26,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/404', 'CustomController@notFound');
 
-Route::get('/users/regist', 'UserController@registView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::get('/users/regist', 'UserController@registView')->name('user_regist')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::POST('/users/regist/save', 'UserController@regist')->middleware(Constants::AUTHORIZE_ADMIN);
-Route::get('/users/search', 'UserController@searchView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::get('/users/search', 'UserController@searchView')->name('user_search')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::POST('/users/search/submit', 'UserController@search')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::POST('/users/detail', 'UserController@detailView');
 Route::POST('/users/update', 'UserController@update');
@@ -44,7 +44,7 @@ Route::post('/projects/remove/user', 'ProjectController@destroy');
 
 Route::get('/salary/search','SalaryController');
 Route::post('/salary/search','SalaryController@search')->name('searchSalary');
-Route::get('/salary/regist','SalaryController@registView');
+Route::get('/salary/regist','SalaryController@registView')->name('registSalary');
 Route::post('/salary/regist','SalaryController@regist')->name('saveSalary');
 Route::get('/salary/detail/{id}', 'SalaryController@detailView')->name('detailSalary');
 Route::post('/salary/update','SalaryController@update')->name('updateSalary');
@@ -53,19 +53,19 @@ Route::resource('companies', 'CompanyController');
 Route::POST('/companies/store', 'CompanyController@store');
 Route::POST('/companies/search', 'CompanyController@search');
 
-Route::get('/work_time', 'WorkTimeController@index');
+Route::get('/work_time', 'WorkTimeController@index')->name('worktime');
 Route::post('/work_time/search', 'WorkTimeController@search')->middleware('WorktimeAuthentication');
 Route::post('/work_time/save', 'WorkTimeController@save')->middleware('WorktimeAuthentication');
 
-Route::get('/customers/regist', 'CustomersController@registView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::get('/customers/regist', 'CustomersController@registView')->name('customerRegist')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::post('/customers/regist/save', 'CustomersController@regist')->middleware(Constants::AUTHORIZE_ADMIN);
-Route::get('/customers/search', 'CustomersController@searchView')->middleware(Constants::AUTHORIZE_ADMIN);
+Route::get('/customers/search', 'CustomersController@searchView')->name('customerSearch')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::post('/customers/search/submit', 'CustomersController@search')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::post('/customers/detail', 'CustomersController@detailView')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::POST('/customers/update', 'CustomersController@update')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::get('/customers/update/errors', 'CustomersController@updateError')->middleware(Constants::AUTHORIZE_ADMIN);
 
-Route::get('/salary/calc', 'SalaryController@calcView');
+Route::get('/salary/calc', 'SalaryController@calcView')->name('calcSalary');;
 Route::post('/salary/calc/search', 'SalaryController@calcSearch')->middleware(Constants::AUTHORIZE_ADMIN);
 
 
