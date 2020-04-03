@@ -8,10 +8,9 @@
             @csrf
             <div class="card">
                 <div class="card-header">
-                <strong class="card-title">Search User</strong>
+                <strong class="card-title">Search project</strong>
                 </div>
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-xs-6 col-md-12">
                             <div class="form-group">
@@ -23,11 +22,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer-o1">
-                    <button class="btn btn-primary pull-right">
-                        Search
-                    </button>
+                    <div class="text-right">
+                        <button class="btn btn-primary">
+                            Search
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>

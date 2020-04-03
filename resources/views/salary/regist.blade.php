@@ -45,10 +45,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="pull-right">
-                      <button class="btn btn-lg btn-info btn-block">
-                        Regist
-                      </button>
+                    <div class="text-right">
+                          <button class="btn btn-lg btn-info btn-block">
+                            Regist
+                          </button>
                     </div>
                   </form>
             </div>

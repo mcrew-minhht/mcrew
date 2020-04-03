@@ -39,12 +39,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer-o1">
-                    <button class="btn btn-primary pull-right">
-                        Search
-                    </button>
-                    <a href="javscript:void(0)" class="btn btn-default pull-right mr-2 clear">Clear</a>
+                    <div class="text-right">
+                        <a href="javscript:void(0)" class="btn btn-default pull-right mr-2 clear">Clear</a>
+                        <button class="btn btn-primary">
+                            Search
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>

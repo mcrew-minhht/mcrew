@@ -35,14 +35,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer-o1">
-                <div class=" pull-right">
+                <div class="text-right">
                     <button type="button" class="btn btn-default" id="clearBtn">
                         Clear
                     </button>
                     <button class="btn btn-primary">
-                        Submit
+                        Search
                     </button>
                 </div>
             </div>
@@ -110,7 +108,7 @@
                             <tr>
                                 <td>{{$wt['userName']}}</td>
                                 @foreach($wt['data'] as $wti)
-                                <?php 
+                                <?php
                                 $time = 0;
                                 if($wti['isWeekend']){
                                     $time = $wti['time'];
