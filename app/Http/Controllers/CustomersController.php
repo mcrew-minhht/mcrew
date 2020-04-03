@@ -50,7 +50,7 @@ class CustomersController extends Controller
         $customers = DB::table('customers');
         foreach ($searchData as $k => $i) {
             if ($i !== null) {
-                $customers->where($k, $i);
+                $customers->where($k, 'like', '%'.$i.'%');
             }
         }
 

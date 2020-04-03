@@ -96,7 +96,7 @@ class UserController extends Controller
         $users = DB::table('users');
         foreach ($searchData as $k => $i) {
             if ($i !== null) {
-                $users->where($k, $i);
+                $users->where($k, 'like', '%'.$i.'%');
             }
         }
 
