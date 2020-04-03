@@ -29,7 +29,12 @@ class UserController extends Controller
         if(empty(session('errors'))){
             session()->forget('_old_input');
         }
-        return view('users.regist');
+
+        $member_types = DB::table('member_types')->select('id', 'name')->get();
+        $data = [
+            'member_types' => $member_types
+        ];
+        return view('users.regist', $data );
     }
 
     public function regist(UserRegist $request)

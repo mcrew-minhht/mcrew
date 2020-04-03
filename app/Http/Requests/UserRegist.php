@@ -25,6 +25,7 @@ class UserRegist extends FormRequest
     {
         return [
             'name' => 'bail|required|between:0,255',
+            'member_type' => 'bail|required|numeric|integer|min:1',
             'email' => 'bail|required|email|between:0,255|unique:users,email',
             'password' => 'bail|required|between:0,255',
             'birthday' => 'date|nullable',
@@ -36,7 +37,7 @@ class UserRegist extends FormRequest
             'regularly_address' => 'between:0,255',
             'join_company_date' => 'date|nullable',
             'company_staff_date' => 'date|nullable',
-            'role' => 'bail|required|digits_between:1,2',
+            'role' => 'bail|required|numeric|integer|min:1',
         ];
     }
 

@@ -23,6 +23,19 @@
                     </div>
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
+                            <label>Member Type</label>
+                            <select class="form-control" name="member_type">
+                                @foreach($member_types as $i)
+                                    <option value="{{$i->id}}" {{ old('member_type', '') == $i->id ? 'selected' : '' }}>{{$i->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('member_type')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                        <div class="form-group">
                             <label>Email</label>
                             <input type="text" class="form-control" name="email" value="{{old('email', '')}}">
                             @error('email')
@@ -161,11 +174,13 @@
 
 @section('js')
 <script>
-    $('#submitBtn').click(function() {
-        $('#submitForm').submit();
-    });
-    $('#clearBtn').click(function() {
-        $('#resetForm').submit();
+    $(document).ready(function() {
+        $('#submitBtn').click(function() {
+            $('#submitForm').submit();
+        });
+        $('#clearBtn').click(function() {
+            $('#resetForm').submit();
+        });
     });
 </script>
 @endsection
