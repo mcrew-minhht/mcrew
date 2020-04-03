@@ -17,6 +17,20 @@
                     @if($adFeature)
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
+                            <label>Member Type</label>
+                            <select class="form-control" name="member_type">
+                                <option value=""></option>
+                                @foreach($member_types as $i)
+                                    <option value="{{$i->id}}" {{ old('member_type', '') == $i->id ? 'selected' : '' }}>{{$i->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('member_type')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                        <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="name" value="{{old('name', '')}}" maxlength="100">
                             @error('name')
@@ -63,6 +77,7 @@
                     <a class="nav-link" id="total-tab" data-toggle="tab" href="#total" role="tab" aria-controls="total" aria-selected="false">Total</a>
                 </li>
             </ul>
+            <?php $dayGroupCount = count($dayGroup); ?>
             <div class="tab-content pt-10" id="myTabContent">
                 <div class="tab-pane fade show active ctn-scroll-x-auto-900" id="primaryWorking" role="tabpanel" aria-labelledby="primaryWorking">
                     <!-- (^0_0^) -->
@@ -72,9 +87,12 @@
                     <table class="table table-bordered table-fixed">
                         <thead>
                             <tr>
-                                <th class="w-200p">Name</th>
+                                <th class="w-200p" rowspan="2">Name</th>
+                                <th class="t-center" colspan="{{$dayGroupCount}}" style="width: {{60 * $dayGroupCount}}px">{{$monthText}}</th>
+                            </tr>
+                            <tr>
                                 @foreach($dayGroup as $dg)
-                                <th class="w-80p">{{$dg}}</th>
+                                <th class="t-center">{{$dg}}</th>
                                 @endforeach
                             </tr>
                         </thead>
@@ -83,7 +101,7 @@
                             <tr>
                                 <td>{{$wt['userName']}}</td>
                                 @foreach($wt['data'] as $wti)
-                                <td>{{ !$wti['isWeekend'] ? $wti['time'] : 0 }}</td>
+                                <td class="t-center">{{ !$wti['isWeekend'] ? ($wti['time'] > 8 ? 8 : $wti['time']) : 0 }}</td>
                                 @endforeach
                             </tr>
                             @endforeach
@@ -97,9 +115,12 @@
                     <table class="table table-bordered table-fixed">
                         <thead>
                             <tr>
-                                <th class="w-200p">Name</th>
+                                <th class="w-200p" rowspan="2">Name</th>
+                                <th class="t-center" colspan="{{$dayGroupCount}}" style="width: {{60 * $dayGroupCount}}px">{{$monthText}}</th>
+                            </tr>
+                            <tr>
                                 @foreach($dayGroup as $dg)
-                                <th class="w-80p">{{$dg}}</th>
+                                <th class="t-center">{{$dg}}</th>
                                 @endforeach
                             </tr>
                         </thead>
@@ -110,13 +131,13 @@
                                 @foreach($wt['data'] as $wti)
                                 <?php
                                 $time = 0;
-                                if($wti['isWeekend']){
+                                if ($wti['isWeekend']) {
                                     $time = $wti['time'];
-                                }else if($wti['time'] >= 8){
+                                } else if ($wti['time'] >= 8) {
                                     $time = $wti['time'] - 8;
                                 }
                                 ?>
-                                <td>{{$time}}</td>
+                                <td class="t-center">{{$time}}</td>
                                 @endforeach
                             </tr>
                             @endforeach
@@ -177,10 +198,10 @@
                                 <td>{{$laborProductivitySalary}}</td><!-- 3 -->
                                 <td>{{Constants::LUNCH_VALUE}}</td><!-- 4 -->
                                 <td>{{$wt['salary']}}</td><!-- 5 -->
-                                <?php $primaryIncome = round( $wt['salary'] * ($wt['primaryWorkDay'] / $totalDayNotWeekend) ) ?>
+                                <?php $primaryIncome = round($wt['salary'] * ($wt['primaryWorkDay'] / $totalDayNotWeekend)) ?>
                                 <td>{{ $primaryIncome }}</td><!-- 6 -->
                                 <td>{{$wt['otTime']}}</td><!-- 7 -->
-                                <?php $otSalaryPerHour = round( $laborProductivitySalary/($totalDayNotWeekend * 8 ) ) ?>
+                                <?php $otSalaryPerHour = round($laborProductivitySalary / ($totalDayNotWeekend * 8)) ?>
                                 <td>{{ $otSalaryPerHour }}</td><!-- 8 -->
                                 <?php $otIncome = $wt['otTime'] * $otSalaryPerHour ?>
                                 <td>{{ $otIncome }}</td><!-- 9 -->
@@ -200,20 +221,20 @@
                                 <?php $taxInIncome = $totalInsurance + $totalDependentPeopleFee ?>
                                 <td>{{ $taxInIncome }}</td><!-- 19 -->
                                 <?php
-                                    $personalTax = $taxInIncome * 0.35 -9850000;
-                                    if($taxInIncome <= 5000000){
-                                        $personalTax = $taxInIncome * 0.05;
-                                    }else if($taxInIncome <= 10000000){
-                                        $personalTax = $taxInIncome * 0.1 -250000;
-                                    }else if($taxInIncome <= 18000000){
-                                        $personalTax = $taxInIncome * 0.15 -750000;
-                                    }else if($taxInIncome <= 32000000){
-                                        $personalTax = $taxInIncome * 0.2 -1650000;
-                                    }else if($taxInIncome <= 52000000){
-                                        $personalTax = $taxInIncome * 0.25 -3250000;
-                                    }else if($taxInIncome <= 80000000){
-                                        $personalTax = $taxInIncome * 0.3 -5850000;
-                                    }
+                                $personalTax = $taxInIncome * 0.35 - 9850000;
+                                if ($taxInIncome <= 5000000) {
+                                    $personalTax = $taxInIncome * 0.05;
+                                } else if ($taxInIncome <= 10000000) {
+                                    $personalTax = $taxInIncome * 0.1 - 250000;
+                                } else if ($taxInIncome <= 18000000) {
+                                    $personalTax = $taxInIncome * 0.15 - 750000;
+                                } else if ($taxInIncome <= 32000000) {
+                                    $personalTax = $taxInIncome * 0.2 - 1650000;
+                                } else if ($taxInIncome <= 52000000) {
+                                    $personalTax = $taxInIncome * 0.25 - 3250000;
+                                } else if ($taxInIncome <= 80000000) {
+                                    $personalTax = $taxInIncome * 0.3 - 5850000;
+                                }
                                 ?>
                                 <td>{{$personalTax}}</td>
                             </tr>
@@ -234,7 +255,7 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        if(typeof myTabContentOriginWidth != "undefined"){
+        if (typeof myTabContentOriginWidth != "undefined") {
             $('#primaryWorking, #otWorking, #total').css('width', myTabContentOriginWidth);
         }
         $('#clearBtn').click(function() {

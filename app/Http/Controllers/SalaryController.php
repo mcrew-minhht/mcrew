@@ -20,7 +20,9 @@ class SalaryController extends Controller
             session()->forget('_old_input');
         }
         $user = Auth::user();
+        $member_types = DB::table('member_types')->select('id', 'name')->get();
         $data = [
+            'member_types' => $member_types,
             "adFeature" => $user->role == Constants::USER_ROLE_ADMIN,
         ];
         return view('salary.calc', $data);
@@ -29,21 +31,23 @@ class SalaryController extends Controller
     public function calcSearch(SalaryCalcSearch $request)
     {
         $user = Auth::user();
-        if(!isset($_POST['name'])){
+        if(!isset($_POST['name']) && !isset($_POST['member_type'])){
             $userId = $user->id;
         }else{
             $userName = $_POST['name'];
+            $member_type = $_POST['member_type'];
         }
 
         $monthYear = $request->monthYear;
         $timeGroup = explode('-', $monthYear);
         $monthOfYear = $timeGroup[1];
         $year = $timeGroup[0];
+        $monthText = Constants::MONTHS_GROUP[intval($monthOfYear)];
         $totalDay = cal_days_in_month(CAL_GREGORIAN, $monthOfYear, $year);
         $totalDayNotWeekend = $totalDay;
         $dayGroup = [];
         for($z1 = 1;$z1 <= $totalDay; $z1++){
-            array_push($dayGroup, $monthOfYear.'/'.str_pad($z1, 2, '0', STR_PAD_LEFT ));
+            array_push($dayGroup, str_pad($z1, 2, '0', STR_PAD_LEFT ));
         }
         $rResult = DB::table('work_time')
         ->select('work_time.date', 'work_time.user_id', 'work_time.work_time')
@@ -52,6 +56,9 @@ class SalaryController extends Controller
             $rResult = $rResult->where('work_time.user_id', $userId);
         }else{
             $rResult = $rResult->join('users', 'users.id', '=', 'work_time.user_id')->where('users.name', 'like', '%' . $userName . '%');
+            if(!empty($member_type)){
+                $rResult = $rResult->where('users.member_type', '=', $member_type);
+            }
         }
         $rResult = $rResult->get();
         $query = DB::getQueryLog();
@@ -114,12 +121,15 @@ class SalaryController extends Controller
             $result[$i0]['otTime'] = $otTime;
             $result[$i0]['primaryWorkDay'] = $primaryWorkDay;
         }
+        $member_types = DB::table('member_types')->select('id', 'name')->get();
         $returnData = [
+            'member_types' => $member_types,
             'workTime' => $result,
             "adFeature" => $user->role == Constants::USER_ROLE_ADMIN,
             "totalDay" => $totalDay,
             "totalDayNotWeekend" => $totalDayNotWeekend,
             "dayGroup" => $dayGroup,
+            "monthText" => $monthText,
         ];
         session()->flash('_old_input', $_POST);
         return view('salary.calc', $returnData);

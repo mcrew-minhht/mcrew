@@ -29,7 +29,7 @@ class Authenticate extends Middleware
             return $next($request);
         }else{
             $path = $request->path();
-            if( $path == 'salary/calc/search' && !isset($_POST['name']) ){
+            if( $path == 'salary/calc/search' && !isset($_POST['name']) && !isset($_POST['member_type']) ){
                 return $next($request);
             }
         }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class UserController extends Controller
 {
@@ -41,6 +42,7 @@ class UserController extends Controller
     {
         $data = [
             'name' => $request->input('name'),
+            'member_type' => $request->input('member_type'),
             'email' => $request->input('email'),
             'email_verified_at' => $request->input('email_verified_at'),
             'password' => Hash::make($request->input('password')),
@@ -109,10 +111,10 @@ class UserController extends Controller
 
     public function detailView(UserDetail $request)
     {
-        // dd(1);
         $userId = $request->id;
         $userInfo = DB::table('users')->select(
             'id',
+            'member_type',
             'name',
             'email',
             'phone_number',
@@ -133,9 +135,13 @@ class UserController extends Controller
         $userInfo->join_company_date = !empty($userInfo->join_company_date) ? date('Y-m-d', strtotime($userInfo->join_company_date)) : '';
         $userInfo->company_staff_date = !empty($userInfo->company_staff_date) ? date('Y-m-d', strtotime($userInfo->company_staff_date)) : '';
 
-        return view('users.update', [
-            'userInfo' => $userInfo
-        ]);
+        $member_types = DB::table('member_types')->select('id', 'name')->get();
+        $data = [
+            'userInfo' => $userInfo,
+            'member_types' => $member_types
+        ];
+        
+        return view('users.update', $data);
     }
 
     public function updateError()
@@ -147,6 +153,7 @@ class UserController extends Controller
     {
         $data = [
             'name' => $request->input('name'),
+            'member_type' => $request->input('member_type'),
             'email' => $request->input('email'),
             'email_verified_at' => $request->input('email_verified_at'),
             'birthday' => $request->input('birthday'),
@@ -168,6 +175,7 @@ class UserController extends Controller
         $userInfo = DB::table('users')->select(
             'id',
             'name',
+            'member_type',
             'email',
             'phone_number',
             'email_verified_at',
@@ -187,9 +195,17 @@ class UserController extends Controller
         $userInfo->join_company_date = !empty($userInfo->join_company_date) ? date('Y-m-d', strtotime($userInfo->join_company_date)) : '';
         $userInfo->company_staff_date = !empty($userInfo->company_staff_date) ? date('Y-m-d', strtotime($userInfo->company_staff_date)) : '';
 
+        $member_types = DB::table('member_types')->select('id', 'name')->get();
+        $data = [
+            'userInfo' => $userInfo,
+            'member_types' => $member_types
+        ];
+        
         $request->session()->flash('success', 'Update has been completed.');
-        return view('users.update', [
-            'userInfo' => $userInfo
-        ]);
+        return view('users.update', $data);
+    }
+
+    public function logout(){
+        Auth::logout();
     }
 }

@@ -1,0 +1,193 @@
+section.content{
+    background-color: rgb(243, 243, 243);
+}
+div.box{
+    background-color: white;
+}
+.card-footer-o1{
+    padding: 12px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+
+/* flexbox */
+.perfect-center-ctn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* background colors */
+.bg-aqa{
+    background-color: aquamarine;
+}
+.bg-sky{
+    background-color: rgb(236, 240, 245);
+}
+.bg-white{
+    background-color: white;
+}
+.bg-gray-o1{
+    background-color: rgb(209, 214, 238);
+}
+
+
+/* margin */
+.mt-40{
+    margin-top: 40px;
+}
+.mt-20{
+    margin-top: 20px;
+}
+.mt-10{
+    margin-top: 10px;
+}
+.ml-20{
+    margin-left: 20px;
+}
+.mr-20{
+    margin-right: 20px;
+}
+.mr-10{
+    margin-right: 10px;
+}
+.mb-0p75r{
+    margin-bottom: 0.75rem;
+}
+.m-0{
+    margin: 0;
+}
+
+/* padding */
+.pt-10{
+    padding-top: 10px;
+}
+.pl-13{
+    padding-left: 13px;
+}
+
+
+/* width */
+.w-100pc{
+    width: 100%;
+}
+.w-80pc{
+    width: 80%;
+}
+.w-70pc{
+    width: 70%;
+}
+.w-60pc{
+    width: 60%;
+}
+.w-59pc{
+    width: 59%;
+}
+.w-40pc{
+    width: 40%;
+}
+.w-39pc{
+    width: 39%;
+}
+.w-30pc{
+    width: 30%;
+}
+.w-20pc{
+    width: 20%;
+}
+.w-10pc{
+    width: 10%;
+}
+.w-m-700p{
+    min-width: 700px;
+}
+.w-1550p{
+    width: 1550px;
+}
+.w-1500p{
+    width: 1500px;
+}
+.w-1450p{
+    width: 1450px;
+}
+.w-1400p{
+    width: 1400px;
+}
+.w-500p{
+    width: 500px;
+}
+.w-400p{
+    width: 400px;
+}
+.w-300p{
+    width: 300px;
+}
+.w-200p{
+    width: 200px;
+}
+.w-150p{
+    width: 150px;
+}
+.w-100p{
+    width: 100px;
+}
+.w-80p{
+    width: 80px;
+}
+.w-50p{
+    width: 50px;
+}
+.w-5r{
+    width: 5rem;
+}
+
+
+/* display style  */
+.d-ib{
+    display: inline-block;
+}
+.d-n{
+    display: none;
+}
+
+
+/* align */
+.t-center{
+    text-align: center;
+}
+.t-x-y-center{
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+
+/* border styles */
+.bb-o1{
+    border-bottom: 1px solid black;
+}
+.btrb-o1{
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.b-o1{
+    border: 1px solid black;
+}
+
+/* container styles */
+.ctn-scroll-x-auto-900{
+    margin: auto;
+    overflow-x: auto;
+}
+
+/* table styles */
+.table-fixed{
+    table-layout: fixed;
+}
+table.table-o1{
+    width: 100%;
+}
+table.table-o1, table.table-o1 th, table.table-o1 td{
+    border-collapse: collapse;
+}

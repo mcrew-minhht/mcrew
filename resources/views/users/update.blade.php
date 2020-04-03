@@ -26,6 +26,19 @@
                     </div>
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
+                            <label>Member Type</label>
+                            <select class="form-control" name="member_type">
+                                @foreach($member_types as $i)
+                                    <option value="{{$i->id}}" {{ old('member_type', '') == $i->id ? 'selected' : '' }}>{{$i->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('member_type')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                        <div class="form-group">
                             <label>Email</label>
                             <input type="text" class="form-control" name="email" value="{{old('email', '')}}">
                             @error('email')
@@ -161,8 +174,8 @@
             let submitForm = $('#submitForm');
             let resetForm = $('#resetForm');
             for (const key in userInfo) {
-                if (key == 'role') {
-                    $('select[name="role"]').find('option[value="' + userInfo[key] + '"]').attr('selected', true);
+                if (key == 'role' || key == 'member_type') {
+                    $('select[name="'+key+'"]').find('option[value="' + userInfo[key] + '"]').attr('selected', true);
                 } else {
                     submitForm.find('input[name="' + key + '"]').val(userInfo[key]);
                     resetForm.find('input[name="' + key + '"]').val(userInfo[key]);

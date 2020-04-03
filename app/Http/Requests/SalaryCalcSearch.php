@@ -26,6 +26,7 @@ class SalaryCalcSearch extends FormRequest
         $this->redirect = '/salary/calc';
         return [
             'name' => 'between:0,100',
+            'member_type' => 'bail|nullable|numeric|integer|min:1',
             'monthYear' => 'required',
         ];
     }
