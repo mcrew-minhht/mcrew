@@ -7,7 +7,7 @@
                 <strong class="card-title">Register company</strong>
             </div>
             <div class="card-body">
-                <form action="{{asset('companies/store')}}" method="POST">
+                <form action="{{asset('companies/store')}}" id="registForm" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-xs-6 col-md-4">
@@ -75,7 +75,8 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <button class="btn btn-sm btn-info">
+                        <a href="javscript:void(0)" class="btn btn-default mr-2" id="clearBtn">Clear</a>
+                        <button class="btn btn-primary pull-right">
                             Submit
                         </button>
                     </div>
@@ -83,4 +84,14 @@
             </div>
         </div>
     </section>
+@endsection
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#clearBtn').click(function(){
+            $('#registForm').trigger("reset");
+            $('.alert').hide();
+        });
+    });
+</script>
 @endsection

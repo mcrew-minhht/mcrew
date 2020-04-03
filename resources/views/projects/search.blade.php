@@ -23,6 +23,9 @@
                         </div>
                     </div>
                     <div class="text-right">
+                        <button type="button" class="btn btn-default" id="clearBtn">
+                            Clear
+                        </button>
                         <button class="btn btn-primary">
                             Search
                         </button>
@@ -43,9 +46,9 @@
                     <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>No.</th>
+                            <th style="width: 5%; text-align: center">No.</th>
                             <th class="text-center">Name</th>
-                            <th></th>
+                            <th style="width: 10%; text-align: center"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +59,7 @@
                                     <td class="nameProject">{{$vProject->name}}</td>
                                     <td>
                                         <div class="perfect-center-ctn">
-                                            <a href="{{route('detailProject',$vProject->id)}}" class="btn btn-info updateProject">Update</a>
+                                            <a href="{{route('detailProject',$vProject->id)}}" class="btn-sm btn-info updateProject">Detail</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -80,6 +83,10 @@
         $('.updateProject').click(function(){
             $('#detailForm').find('input[name="id"]').val($(this).attr('project-id'));
             $('#detailForm').submit();
+        });
+        $('#clearBtn').click(function(){
+            $('#searchForm').trigger("reset");
+            $('.alert').hide();
         });
     });
 </script>

@@ -4,10 +4,10 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-              <strong class="card-title">Regist Project</strong>
+              <strong class="card-title">Regist Salary</strong>
             </div>
             <div class="card-body">
-                <form action="{{route('saveSalary')}}" method="POST">
+                <form action="{{route('saveSalary')}}" id="registForm" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-xs-6 col-md-4">
@@ -46,12 +46,25 @@
                         </div>
                     </div>
                     <div class="text-right">
-                          <button class="btn btn-lg btn-info btn-block">
-                            Regist
-                          </button>
+                        <button type="button" class="btn btn-default" id="clearBtn">
+                            Clear
+                        </button>
+                        <button class="btn btn-primary pull-right">
+                        Regist
+                        </button>
                     </div>
                   </form>
             </div>
         </div>
     </section>
+@endsection
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#clearBtn').click(function(){
+            $('#registForm').trigger("reset");
+            $('.alert').hide();
+        });
+    });
+</script>
 @endsection

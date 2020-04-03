@@ -11,7 +11,7 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <strong class="card-title">Update User</strong>
+            <strong class="card-title">Update Salary</strong>
         </div>
         <div class="card-body">
             <form action="{{route('updateSalary')}}" method="POST" id="submitForm">
@@ -49,11 +49,12 @@
                 </div>
             </form>
         </div>
-        <div class="card-footer-o1">
+        <div class="card-footer-o1 text-right">
+            <a href="javscript:void(0)" class="btn btn-default mr-2" id="clearBtn">Cancel</a>
             <button class="btn btn-primary pull-right" id="submitBtn">
-                Submit
+                Update
             </button>
-            <a href="javscript:void(0)" class="btn btn-default pull-right mr-2 reset">Cancel</a>
+
         </div>
     </div>
 </section>
@@ -73,6 +74,10 @@
         $('.removeBtn').click(function(){
             $('#removeForm').find('input[name="id"]').val($(this).attr('user-id'));
             $('#removeForm').submit();
+        });
+        $('#clearBtn').click(function(){
+            $('#submitForm').trigger("reset");
+            $('.alert').hide();
         });
     });
 

@@ -7,7 +7,7 @@
                 <strong class="card-title">Search company</strong>
             </div>
             <div class="card-body">
-                <form action="{{asset('companies/search')}}" method="POST">
+                <form action="{{asset('companies/search')}}" id="searchForm" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-xs-6 col-md-4">
@@ -48,7 +48,8 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <button class="btn btn-sm btn-info">
+                        <a href="javscript:void(0)" class="btn btn-default mr-2" id="clearBtn">Clear</a>
+                        <button class="btn btn-primary">
                             Search
                         </button>
                     </div>
@@ -65,17 +66,19 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th style="width: 5%; text-align: center">No.</th>
                                 <th style="width: 20%; text-align: center">Name</th>
                                 <th style="width: 15%; text-align: center">Phone</th>
-                                <th style="width: 40%; text-align: center">Address</th>
+                                <th style="width: 35%; text-align: center">Address</th>
                                 <th style="width: 15%; text-align: center">Email</th>
                                 <th style="width: 10%; text-align: center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         @if(count($lists))
-                            @foreach($lists as $list)
+                            @foreach($lists as $key => $list)
                             <tr>
+                                <td>{{ $key+1 }}</td>
                                 <td>{{$list['name']}}</td>
                                 <td>{{$list['phone']}}</td>
                                 <td>{{$list['address']}}</td>
@@ -98,4 +101,14 @@
             </div>
         @endif
     </section>
+@endsection
+@section('js')
+<script>
+    $(document).ready(function() {
+        $('#clearBtn').click(function(){
+            $('#searchForm').trigger("reset");
+            $('.alert').hide();
+        });
+    });
+</script>
 @endsection

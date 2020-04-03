@@ -57,11 +57,11 @@
                     <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>No.</th>
+                            <th style="width: 5%; text-align: center">No.</th>
                             <th class="text-center">User name</th>
                             <th class="text-center">Base salary</th>
                             <th class="text-center">Salary</th>
-                            <th></th>
+                            <th style="width: 10%; text-align: center"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,7 +74,7 @@
                                     <td class="nameProject">{{ number_format($vList->salary,0,',',',') }}</td>
                                     <td>
                                         <div class="perfect-center-ctn">
-                                            <a href="{{ route('detailSalary',$vList->id) }}" class="btn btn-info detailSalary">Detail</a>
+                                            <a href="{{ route('detailSalary',$vList->id) }}" class="btn-sm btn-info detailSalary">Detail</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -96,7 +96,7 @@
 <script>
     $(document).ready(function() {
         $('.clear').click(function(){
-            $('#searchForm').find('input').val('');
+            $('#searchForm').trigger("reset");
             $('.alert').hide();
         });
     });

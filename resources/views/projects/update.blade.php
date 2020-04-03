@@ -47,9 +47,12 @@
                 </div>
             </form>
         </div>
-        <div class="card-footer-o1">
+        <div class="card-footer-o1 text-right">
+            <button type="button" class="btn btn-default" id="clearBtn">
+                Clear
+            </button>
             <button class="btn btn-primary pull-right" id="submitBtn">
-                Submit
+                Update
             </button>
         </div>
     </div>
@@ -67,19 +70,21 @@
                 <table class="table table-bordered" id="listUser">
                     <thead>
                         <tr>
+                            <th style="width: 5%; text-align: center">No.</th>
                             <th class="text-center">Name</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Identity</th>
                             <th class="text-center">Phone Number</th>
                             <th class="text-center">Current Address</th>
                             <th class="text-center">Birthday</th>
-                            <th></th>
+                            <th style="width: 10%; text-align: center"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @if(count($userProject))
-                        @foreach($userProject as $i)
+                        @foreach($userProject as $key => $i)
                         <tr data-id="{{$i->id}}">
+                            <td>{{ $key+1 }}</td>
                             <td >{{$i->name}}</td>
                             <td>{{$i->email}}</td>
                             <td>{{$i->identity}}</td>
@@ -118,6 +123,10 @@
         $('.removeBtn').click(function(){
             $('#removeForm').find('input[name="id"]').val($(this).attr('user-id'));
             $('#removeForm').submit();
+        });
+        $('#clearBtn').click(function(){
+            $('#submitForm').trigger("reset");
+            $('.alert').hide();
         });
     });
 
