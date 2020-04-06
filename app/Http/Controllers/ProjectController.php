@@ -40,6 +40,10 @@ class ProjectController extends Controller
 
     public function searchView()
     {
+        if(empty(session('errors'))){
+            session()->forget('_old_input');
+        }
+        
         return view('projects.search');
     }
 
@@ -51,6 +55,8 @@ class ProjectController extends Controller
                     ->where('name', 'LIKE', "%{$name}%")
                     ->get();
 
+        session()->flash('_old_input', $_POST);
+        
         return view('projects.search', [
             'list' => $project
         ]);

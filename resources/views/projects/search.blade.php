@@ -4,6 +4,8 @@
 
 @section('content')
     <section class="content">
+        <form action="projects/search" method="get" id="resetForm">
+        </form>
         <form action="{{route('searchProject')}}" method="POST" id="searchForm">
             @csrf
             <div class="card">
@@ -15,7 +17,7 @@
                         <div class="col-xs-6 col-md-12">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" name="nameSearch" >
+                                <input type="text" class="form-control" name="nameSearch" value="{{old('nameSearch', '')}}">
                                 @error('nameSearch')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -85,8 +87,7 @@
             $('#detailForm').submit();
         });
         $('#clearBtn').click(function(){
-            $('#searchForm').trigger("reset");
-            $('.alert').hide();
+            $('#resetForm').submit();
         });
     });
 </script>

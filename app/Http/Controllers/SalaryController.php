@@ -143,6 +143,10 @@ class SalaryController extends Controller
      */
     public function __invoke(Request $request)
     {
+        if(empty(session('errors'))){
+            session()->forget('_old_input');
+        }
+        
         return view('salary.search');
     }
 
@@ -157,6 +161,8 @@ class SalaryController extends Controller
             ->where('users.name', 'LIKE', "%{$name}%")
             ->where('salary.salary', 'LIKE', "%{$salary}%")
             ->get();
+
+        session()->flash('_old_input', $_POST);
 
         return view('salary.search', [
             'list' => $searchSalary

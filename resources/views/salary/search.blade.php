@@ -11,6 +11,8 @@
 @endsection
 @section('content')
     <section class="content">
+        <form action="salary/search" method="get" id="resetForm">
+        </form>
         <form action="{{route('searchSalary')}}" method="POST" id="searchForm">
             @csrf
             <div class="card">
@@ -23,7 +25,7 @@
                         <div class="col-xs-6 col-md-6">
                             <div class="form-group">
                                 <label>User name</label>
-                                <input type="text" class="form-control" name="nameSearch" >
+                                <input type="text" class="form-control" name="nameSearch" value="{{old('nameSearch', '')}}">
                                 @error('nameSearch')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -32,7 +34,7 @@
                         <div class="col-xs-6 col-md-6">
                             <div class="form-group">
                                 <label>Salary</label>
-                                <input type="text" class="form-control" name="salarySearch" >
+                                <input type="text" class="form-control" name="salarySearch" value="{{old('salarySearch', '')}}">
                                 @error('salarySearch')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -40,7 +42,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <a href="javscript:void(0)" class="btn btn-default pull-right mr-2 clear">Clear</a>
+                        <button type="button"  class="btn btn-default pull-right mr-2 clear">Clear</button>
                         <button class="btn btn-primary">
                             Search
                         </button>
@@ -96,8 +98,7 @@
 <script>
     $(document).ready(function() {
         $('.clear').click(function(){
-            $('#searchForm').trigger("reset");
-            $('.alert').hide();
+             $('#resetForm').submit();
         });
     });
 </script>
