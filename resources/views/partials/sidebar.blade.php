@@ -19,14 +19,11 @@
                     <a href="{{ route('home') }}" class="d-block">MinhHT</a>
                 </div>
             </div>
-            <div class="pl-13">
-                <a href="logout">Logout</a>
-            </div>
         </div>
 
         <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <nav class="mt-2 mb-4">
+            <ul class="nav nav-pills user-panel nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
@@ -170,6 +167,10 @@
                 </li>
             </ul>
         </nav>
+
+        <div class="ml-2 pl-13">
+            <a href="logout">Logout</a>
+        </div>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
