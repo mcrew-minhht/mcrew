@@ -70,9 +70,16 @@ class CustomersController extends Controller
             'id',
             'name'
         )->where('id', '=', $userId)->get()[0];
+
+         $lists = DB::table('projects')
+            ->join('customers', 'customers.id', '=', 'projects.customer_id')
+            ->where('customers.id', '=' , $request->id)
+            ->select('projects.*')
+            ->get();
         
         return view('customers.update', [
-            'customerInfo' => $customerInfo
+            'customerInfo' => $customerInfo,
+            'lists' => $lists
         ]);
     }
     
@@ -83,10 +90,12 @@ class CustomersController extends Controller
         
     public function update(CustomersUpdate $request)
     {
+        
         $data = [
             'name' => $request->input('name'),
             'updated_at' => date(Config::get('constants.DATETIME_FORMAT_MYSQL'))
         ];
+
         DB::table('customers')->where('id', $request->id)->update(
             $data
         );
@@ -96,9 +105,17 @@ class CustomersController extends Controller
             'name'
         )->where('id', '=', $request->id)->get()[0];
 
+        $lists = DB::table('projects')
+            ->join('customers', 'customers.id', '=', 'projects.customer_id')
+            ->where('customers.id', '=' , $request->id)
+            ->select('projects.*')
+            ->get();
+
         $request->session()->flash('success', 'Update has been completed.');
         return view('customers.update', [
-            'customerInfo' => $customerInfo
+            'customerInfo' => $customerInfo,
+            'lists'=>$lists
+
         ]);
     }
 }

@@ -49,7 +49,7 @@ Route::post('/salary/regist','SalaryController@regist')->name('saveSalary');
 Route::get('/salary/detail/{id}', 'SalaryController@detailView')->name('detailSalary');
 Route::post('/salary/update','SalaryController@update')->name('updateSalary');
 
-Route::resource('companies', 'CompanyController');
+Route::get('companies/regist', 'CompanyController@create');
 Route::POST('/companies/store', 'CompanyController@store');
 Route::POST('/companies/search', 'CompanyController@search');
 

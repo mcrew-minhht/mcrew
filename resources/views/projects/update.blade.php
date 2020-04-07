@@ -39,9 +39,6 @@
                                 @endif
 
                             </select>
-                            @error('role')
-                            <div class="alert alert-danger"></div>
-                            @enderror
                         </div>
                     </div>
                 </div>

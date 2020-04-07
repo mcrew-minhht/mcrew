@@ -6,6 +6,8 @@ use App\Http\Requests\ProjectRegist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProjectUpdate;
+use Illuminate\Support\Facades\Config;
+use Auth;
 
 class ProjectController extends Controller
 {
@@ -89,7 +91,9 @@ class ProjectController extends Controller
     public function update(ProjectUpdate $request)
     {
         $data = [
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
+            'updated_by' => Auth::user()->id,
+            'updated_at' => date(Config::get('constants.DATETIME_FORMAT_MYSQL'))
         ];
 
         $userId =  $request->user;
@@ -98,18 +102,20 @@ class ProjectController extends Controller
             $data
         );
 
-        foreach ($userId as  $vUser) {
-            $data = [
-                'user_id' => $vUser,
-                'project_id'=> $request->id
-            ];
+        if (isset($userId) && is_array($userId) && count($userId)) {
+             foreach ($userId as  $vUser) {
+                $data = [
+                    'user_id' => $vUser,
+                    'project_id'=> $request->id
+                ];
 
-            $exists = DB::table('user_projects')->where('user_id','=',$vUser)->exists();
+                $exists = DB::table('user_projects')->where('user_id','=',$vUser)->exists();
 
-            if (!$exists) {
-                DB::table('user_projects')->insert(
-                    $data
-                );
+                if (!$exists) {
+                    DB::table('user_projects')->insert(
+                        $data
+                    );
+                }
             }
         }
 

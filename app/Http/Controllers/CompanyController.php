@@ -54,7 +54,7 @@ class CompanyController extends Controller
     {
         $this->companyService->create($request);
 
-        return redirect('companies/create')->with('success', 'Registration has been completed.');
+        return redirect('companies/regist')->with('success', 'Registration has been completed.');
     }
 
     /**

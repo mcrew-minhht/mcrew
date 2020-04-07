@@ -37,6 +37,46 @@
             </div>
         </div>
     </form>
+    @if(isset($lists))
+        <form action="{{asset('projects/remove/user')}}" method="post"  id="removeForm">
+            <input type="hidden" name="idProject" value="">
+            <input type="hidden" name="id">
+            @csrf
+        </form>
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">List Custumer Project</strong>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered" id="listUser">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%; text-align: center">No.</th>
+                            <th class="text-center">Name</th>
+                            <th style="width: 10%; text-align: center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(count($lists))
+                        @foreach($lists as $key => $i)
+                        <tr data-id="{{$i->id}}">
+                            <td>{{ $key+1 }}</td>
+                            <td >{{$i->name}}</td>
+                            <td class="t-center">
+                                <button class="btn-sm btn-info removeBtn" project-id="{{$i->id}}">Detail</button>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @else
+                        <tr class="text-center">
+                            <td colspan="3">No Data</td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
 </section>
 @endsection
 
