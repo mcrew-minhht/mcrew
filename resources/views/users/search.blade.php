@@ -86,7 +86,7 @@
                         <td>{{$i->current_address}}</td>
                         <td>{{explode(' ', $i->birthday)[0]}}</td>
                         <td class="text-center">
-                            <btn class="btn-sm btn-info detailBtn" user-id="{{$i->id}}">Detail</btn>
+                            <button class="btn-sm btn-info detailBtn" user-id="{{$i->id}}">Detail</button>
                         </td>
                     </tr>
                     @endforeach
