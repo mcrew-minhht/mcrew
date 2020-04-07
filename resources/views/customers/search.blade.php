@@ -58,7 +58,7 @@
                     <tr>
                         <td>{{$i->name}}</td>
                         <td class="t-center">
-                            <btn class="btn btn-info detailBtn" data-id="{{$i->id}}">Detail</btn>
+                            <btn class="btn-sm btn-info detailBtn" data-id="{{$i->id}}">Detail</btn>
                         </td>
                     </tr>
                     @endforeach

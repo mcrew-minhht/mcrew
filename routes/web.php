@@ -49,8 +49,9 @@ Route::post('/salary/regist','SalaryController@regist')->name('saveSalary');
 Route::get('/salary/detail/{id}', 'SalaryController@detailView')->name('detailSalary');
 Route::post('/salary/update','SalaryController@update')->name('updateSalary');
 
-Route::get('companies/regist', 'CompanyController@create');
+Route::get('companies/regist', 'CompanyController@create')->name('companyRegist');
 Route::POST('/companies/store', 'CompanyController@store');
+Route::get('/companies/search','CompanyController@index')->name('companySearch');
 Route::POST('/companies/search', 'CompanyController@search');
 
 Route::get('/work_time', 'WorkTimeController@index')->name('worktime');

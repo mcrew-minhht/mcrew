@@ -36,7 +36,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
+                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>
                             User
                             <i class="fas fa-angle-left right"></i>
@@ -82,7 +82,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tree"></i>
+                        <i class="nav-icon fas fa-money-bill-alt"></i>
                         <p>
                             Salary
                             <i class="fas fa-angle-left right"></i>
@@ -105,7 +105,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon fas fa-building"></i>
                         <p>
                             Company
                             <i class="fas fa-angle-left right"></i>
@@ -113,13 +113,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="companies" class="nav-link">
+                            <a href="{{route('companySearch')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Search</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="companies/regist" class="nav-link">
+                            <a href="{{route('companyRegist')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Regist</p>
                             </a>
@@ -128,7 +128,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon fas fa-people-arrows"></i>
                         <p>
                             Customers
                             <i class="fas fa-angle-left right"></i>
@@ -159,18 +159,26 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="{{route('calcSalary')}}" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-hand-holding-usd"></i>
                         <p>
                             Salary Cal
                         </p>
                     </a>
                 </li>
             </ul>
+            <ul class="nav nav-pills user-panel nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="logout" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
+            </ul>
         </nav>
-
-        <div class="ml-2 pl-13">
-            <a href="logout">Logout</a>
-        </div>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

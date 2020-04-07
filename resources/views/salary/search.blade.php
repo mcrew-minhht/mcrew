@@ -22,7 +22,7 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-xs-6 col-md-6">
+                        <div class="col-xs-6 col-md-4">
                             <div class="form-group">
                                 <label>User name</label>
                                 <input type="text" class="form-control" name="nameSearch" value="{{old('nameSearch', '')}}">
@@ -31,7 +31,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-xs-6 col-md-6">
+                        <div class="col-xs-6 col-md-4">
                             <div class="form-group">
                                 <label>Salary</label>
                                 <input type="text" class="form-control" name="salarySearch" value="{{old('salarySearch', '')}}">

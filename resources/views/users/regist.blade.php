@@ -165,9 +165,6 @@
                 </button>
             </div>
         </div>
-        <div class="card-footer-o1">
-
-        </div>
     </div>
 </section>
 @endsection

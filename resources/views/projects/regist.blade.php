@@ -10,7 +10,7 @@
                 <form action="{{route('saveProject')}}" id="registForm" method="POST">
                     @csrf
                     <div class="row">
-                        <div class="col-xs-6 col-md-12">
+                        <div class="col-xs-6 col-md-4">
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" class="form-control" name="name">

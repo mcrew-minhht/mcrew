@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\CompanyService;
-use http\Env\Response;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
