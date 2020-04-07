@@ -68,7 +68,7 @@ class CustomersController extends Controller
         $userId = $request->id;
         $customerInfo = DB::table('customers')->select(
             'id',
-            'name',
+            'name'
         )->where('id', '=', $userId)->get()[0];
         
         return view('customers.update', [
@@ -93,7 +93,7 @@ class CustomersController extends Controller
 
         $customerInfo = DB::table('customers')->select(
             'id',
-            'name',
+            'name'
         )->where('id', '=', $request->id)->get()[0];
 
         $request->session()->flash('success', 'Update has been completed.');

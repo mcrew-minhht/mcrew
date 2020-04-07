@@ -75,6 +75,7 @@ class ProjectController extends Controller
         $userProject = DB::table('projects')
             ->join('user_projects', 'projects.id', '=', 'user_projects.project_id')
             ->join('users', 'users.id', '=', 'user_projects.user_id')
+            ->where('user_projects.project_id', '=', $id)
             ->select('users.*')
             ->get();
 

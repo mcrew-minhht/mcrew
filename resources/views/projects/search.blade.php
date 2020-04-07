@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-xs-6 col-md-12">
+                        <div class="col-xs-6 col-md-4">
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" class="form-control" name="nameSearch" value="{{old('nameSearch', '')}}">
@@ -68,7 +68,7 @@
                             @endforeach
                         @else
                             <tr class="text-center">
-                                <td colspan="7">No Data</td>
+                                <td colspan="3">No Data</td>
                             </tr>
                         @endif
                     </tbody>

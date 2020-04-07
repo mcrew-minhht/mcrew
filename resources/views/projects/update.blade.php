@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-xs-6 col-md-6">
                         <div class="form-group">
-                            <label>Role</label>
+                            <label>Member</label>
                             <select multiple class="form-control" name="user[]" required=""  id="multiselect" >
                                 @if(isset($users))
                                 @foreach ($users as $k=>$item)
@@ -98,7 +98,7 @@
                         @endforeach
                         @else
                         <tr class="text-center">
-                            <td colspan="7">No Data</td>
+                            <td colspan="8">No Data</td>
                         </tr>
                         @endif
                     </tbody>

@@ -49,7 +49,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">Name</th>
-                        <th></th>
+                        <th style="width: 10%; text-align: center"></th>
                     </tr>
                 </thead>
                 <tbody>

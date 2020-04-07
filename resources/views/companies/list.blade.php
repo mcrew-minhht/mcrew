@@ -92,7 +92,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="5" style="text-align: center">No Data</td>
+                                <td colspan="6" style="text-align: center">No Data</td>
                             </tr>
                         @endif
                         </tbody>
