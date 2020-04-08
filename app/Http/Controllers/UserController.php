@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordUpdate;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRegist;
 use App\Http\Requests\UserSearch;
@@ -103,7 +104,7 @@ class UserController extends Controller
         $users = $users->get();
 
         session()->flash('_old_input', $_POST);
-        
+
         return view('users.search', [
             'list' => $users
         ]);
@@ -140,7 +141,7 @@ class UserController extends Controller
             'userInfo' => $userInfo,
             'member_types' => $member_types
         ];
-        
+
         return view('users.update', $data);
     }
 
@@ -200,9 +201,37 @@ class UserController extends Controller
             'userInfo' => $userInfo,
             'member_types' => $member_types
         ];
-        
+
         $request->session()->flash('success', 'Update has been completed.');
         return view('users.update', $data);
+    }
+
+    public function editPassword()
+    {
+
+        return view('users.password');
+    }
+
+    public function updatePassword(PasswordUpdate $request)
+    {
+
+        $userPassword = Auth::user()->password;
+
+        if(Hash::check($request->oldPassword,$userPassword)){
+            $data = [
+                'password' => Hash::make($request->input('password')),
+            ];
+            DB::table('users')->where('id', Auth::user()->id)->update(
+                $data
+            );
+            $request->session()->flash('success', 'Update has been completed.');
+            return view('users.password');
+        }else{
+            $request->session()->flash('error', 'Old password is incorrect.');
+            return view('users.password');
+        }
+
+
     }
 
     public function logout(){

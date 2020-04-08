@@ -31,7 +31,9 @@ Route::POST('/users/regist/save', 'UserController@regist')->middleware(Constants
 Route::get('/users/search', 'UserController@searchView')->name('user_search')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::POST('/users/search/submit', 'UserController@search')->middleware(Constants::AUTHORIZE_ADMIN);
 Route::POST('/users/detail', 'UserController@detailView');
-Route::POST('/users/update', 'UserController@update');
+Route::POST('/users/update', 'UserController@update')->name('user_update');
+Route::get('/users/password', 'UserController@editPassword')->name('user_password');
+Route::POST('/users/password', 'UserController@updatePassword');
 Route::get('/users/update/errors', 'UserController@updateError');
 
 Route::get('/projects/regist','ProjectController@registView')->name('registProject');
