@@ -11,6 +11,7 @@ use App\Http\Requests\SalaryRegist;
 use App\Http\Requests\SalarySearch;
 use App\Http\Requests\SalaryUpdate;
 use App\Http\Requests\SalaryCalcSearch;
+use DateTime;
 
 class SalaryController extends Controller
 {
@@ -19,9 +20,12 @@ class SalaryController extends Controller
         if(empty(session('errors'))){
             session()->forget('_old_input');
         }
+        $date = getdate();
+        $month = $date['year'].'-'.str_pad($date['mon'], 2, '0', STR_PAD_LEFT );
         $user = Auth::user();
         $member_types = DB::table('member_types')->select('id', 'name')->get();
         $data = [
+            'month'=>$month,
             'member_types' => $member_types,
             "adFeature" => $user->role == Constants::USER_ROLE_ADMIN,
         ];
@@ -37,7 +41,8 @@ class SalaryController extends Controller
             $userName = $_POST['name'];
             $member_type = $_POST['member_type'];
         }
-
+        $date = getdate();
+        $d = $date['wday'];
         $monthYear = $request->monthYear;
         $timeGroup = explode('-', $monthYear);
         $monthOfYear = $timeGroup[1];
@@ -47,7 +52,8 @@ class SalaryController extends Controller
         $totalDayNotWeekend = $totalDay;
         $dayGroup = [];
         for($z1 = 1;$z1 <= $totalDay; $z1++){
-            array_push($dayGroup, str_pad($z1, 2, '0', STR_PAD_LEFT ));
+            if ($d > 6) $d = 0;
+            array_push($dayGroup, array(str_pad($z1, 2, '0', STR_PAD_LEFT ),$d++));
         }
         $rResult = DB::table('work_time')
         ->select('work_time.date', 'work_time.user_id', 'work_time.work_time')
@@ -107,7 +113,7 @@ class SalaryController extends Controller
                         $primaryWorkDay++;
                     }
                 }
-    
+
                 $totalWorkTime += $item['time'];
                 if($item['time'] > 8){
                     $otTime += $item['time'] - 8;
@@ -146,7 +152,7 @@ class SalaryController extends Controller
         if(empty(session('errors'))){
             session()->forget('_old_input');
         }
-        
+
         return view('salary.search');
     }
 

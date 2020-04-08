@@ -1,7 +1,13 @@
 @extends('master')
 
 @section('pageTitle', 'MCREW TECH')
-
+@section('css')
+    <style>
+        .b-grey{
+            background: #B5B5B5 !important;
+        }
+    </style>
+@endsection
 @section('content')
 <section class="content" id="test1">
     <form action="salary/calc" method="get" id="resetForm">
@@ -42,7 +48,11 @@
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
                             <label>Month Of Year</label>
-                            <input type="month" class="form-control" name="monthYear" value="{{old('monthYear', '')}}">
+                            @if (isset($month))
+                            <input type="month" class="form-control" name="monthYear" id="datePicker" value="{{ $month }}">
+                            @else
+                            <input type="month" class="form-control" name="monthYear" id="datePicker" value="{{old('monthYear','')}}">
+                            @endif
                             @error('monthYear')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -53,7 +63,7 @@
                     <button type="button" class="btn btn-default" id="clearBtn">
                         Clear
                     </button>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" id="searchCalc">
                         Search
                     </button>
                 </div>
@@ -92,7 +102,11 @@
                             </tr>
                             <tr>
                                 @foreach($dayGroup as $dg)
-                                <th class="t-center">{{$dg}}</th>
+                                    @if ($dg[1] == 6 || $dg[1] == 0)
+                                        <th class="t-center bg-secondary">{{$dg[0]}}</th>
+                                    @else
+                                        <th class="t-center">{{$dg[0]}}</th>
+                                    @endif
                                 @endforeach
                             </tr>
                         </thead>
@@ -120,7 +134,11 @@
                             </tr>
                             <tr>
                                 @foreach($dayGroup as $dg)
-                                <th class="t-center">{{$dg}}</th>
+                                    @if ($dg[1] == 6 || $dg[1] == 0)
+                                        <th class="t-center bg-secondary">{{$dg[0]}}</th>
+                                    @else
+                                        <th class="t-center">{{$dg[0]}}</th>
+                                    @endif
                                 @endforeach
                             </tr>
                         </thead>
