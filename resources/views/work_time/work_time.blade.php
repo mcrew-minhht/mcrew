@@ -101,6 +101,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                             <th>Day Of Week</th>
                             <th>Time Of Work(h)</th>
                             <th>Project</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody id="dynamicBody1">
@@ -111,15 +112,18 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                             <td>{{ $i['dayOfWeek'] }}</td>
                             <td>
                                 <span class="toggleE1">{{ $i['time'] }}</span>
-                                <input name="time[]" type="number" class="toggleE2" value="{{ $i['time'] }}">
+                                <input name="time[]" type="number" style="display:none" class="toggleE2" value="{{ $i['time'] }}">
                             </td>
                             <td>
                                 <span class="toggleE1">{{ $i['projectName'] }}</span>
-                                <select name="projects[]" class="toggleE2">
+                                <select name="projects[]" class="toggleE2" style="display:none">
                                     @foreach( $projects as $p )
                                     <option value="{{$p->id}}" {{ $i['projectID'] == $p->id ? 'selected' : '' }}>{{$p->name}}</option>
                                     @endforeach
                                 </select>
+                            </td>
+                            <td >
+                                    <input type="number" value="{{ $i['status'] }}" name="status[]" >
                             </td>
                         </tr>
                         @endforeach
@@ -306,6 +310,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
         $('button.editModeBtn').click(function() {
             $('input.toggleE2, select.toggleE2, button.toggleE2').css('display', 'inline-block');
             $('span.toggleE1, button.toggleE1').css('display', 'none');
+           // $('#dynamicBody1 tr td .toggleE2').css('display', 'none');
         });
 
         $('button.pdfDBtn').click(function() {

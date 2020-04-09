@@ -23,7 +23,7 @@ class WorkTimeController extends Controller
             'targetSelectData' => $targetSelectData,
         ]);
     }
-    
+
     public function search(Request $request, $monthYear = ''){
         //stupid -> remove it
         $user = Auth::user();
@@ -57,7 +57,7 @@ class WorkTimeController extends Controller
                 ]);
             })
             ->get();
-            
+
             $listUID =  [];
             foreach($grandResult as $y1){
                 array_push($listUID, $y1->user_id);
@@ -79,7 +79,7 @@ class WorkTimeController extends Controller
         $userName = $request->userName ? $request->userName : $user->name;
         $rResult = DB::table('work_time')
         ->leftJoin('projects', 'work_time.project', '=', 'projects.id')
-        ->select('work_time.date', 'work_time.user_id', 'work_time.work_time', 'work_time.project as projectID', 'projects.name as projectName')
+        ->select('work_time.date', 'work_time.status', 'work_time.user_id', 'work_time.work_time', 'work_time.project as projectID', 'projects.name as projectName')
         ->where('work_time.date', 'like', $monthYear . '%')
         ->whereIn('work_time.user_id', $userId)
         ->get();
@@ -91,6 +91,7 @@ class WorkTimeController extends Controller
             array_push($resultGroup[$v->user_id], $v);
         }
         $result = [];
+        // dd(count($resultGroup[1]));
         foreach($resultGroup as $i0 => $v0){
             $userName = DB::table('users')->select('name')->where('id', '=', $i0)->first();
             $userName = !empty($userName) ? $userName->name : '';
@@ -100,13 +101,18 @@ class WorkTimeController extends Controller
                 'userName' => $userName,
             ];
             $totalWorkTime = 0;
+            for ($j=0; $j < count($resultGroup[1]); $j++) {
+               $status = $v0[$j]->status;
+            }
+            if (count($resultGroup[1]) == 0) $status = '';
             for($i = 1; $i <= $totalDay; $i++){
                 $item = [
                     'day' => $i,
                     'dayOfWeek' => Constants::WEEKDAYS_GROUP[date('w', strtotime($monthYear . '-' . $i))],
-                    'time' => 0.00,
+                    'time' => 8.00,
                     'projectID' => '',
                     'projectName' => '',
+                    'status' => $status
                 ];
                 for($i1 = 0, $l1 = count($v0); $i1 < $l1; $i1++){
                     if( $i == explode('-', $v0[$i1]->date)[2] ){
@@ -115,13 +121,14 @@ class WorkTimeController extends Controller
                         $item['projectName'] = $v0[$i1]->projectName;
                     }
                 }
-    
+
                 $totalWorkTime += $item['time'];
                 array_push($result[$i0]['data'], $item);
             }
 
             $result[$i0]['totalWorkTime'] = $totalWorkTime;
         }
+        // dd($result);
         $projects = DB::table('projects')
         ->select('id', 'name')
         ->get();
@@ -194,25 +201,27 @@ class WorkTimeController extends Controller
         $time = $request->time;
         $projects = $request->projects;
         $monthYear = $request->monthYear;
-
+        $status = $request->status;
         foreach($time as $index => $value){
             if(!$value){
                 unset($time[$index]);
                 unset($projects[$index]);
+                unset($status[$index]);
             }else{
-                
                 DB::table('work_time')
                 ->updateOrInsert(
                     [
-                        'user_id' => $userID, 
+                        'user_id' => $userID,
                         'date' => $monthYear.'-'.str_pad($index+1, 2, "0", STR_PAD_LEFT),
                     ],
                     [
                         'work_time' => $value,
                         'project' => $projects[$index],
+                        'status' => $status[$index],
+
                     ]
                 );
-                
+
             }
         }
 

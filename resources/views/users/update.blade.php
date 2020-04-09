@@ -26,19 +26,6 @@
                     </div>
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
-                            <label>Member Type</label>
-                            <select class="form-control" name="member_type">
-                                @foreach($member_types as $i)
-                                    <option value="{{$i->id}}" {{ old('member_type', '') == $i->id ? 'selected' : '' }}>{{$i->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('member_type')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-4">
-                        <div class="form-group">
                             <label>Email</label>
                             <input type="text" class="form-control" name="email" value="{{old('email', '')}}">
                             @error('email')
@@ -114,36 +101,6 @@
                             <label>Regularly Address</label>
                             <input type="text" class="form-control" name="regularly_address" value="{{old('regularly_address', '')}}">
                             @error('regularly_address')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-4">
-                        <div class="form-group">
-                            <label>Join Company Date</label>
-                            <input type="date" class="form-control" name="join_company_date" value="{{old('join_company_date', '')}}">
-                            @error('join_company_date')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-4">
-                        <div class="form-group">
-                            <label>Company Staff Date</label>
-                            <input type="date" class="form-control" name="company_staff_date" value="{{old('company_staff_date', '')}}">
-                            @error('company_staff_date')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-4">
-                        <div class="form-group">
-                            <label>Role</label>
-                            <select class="form-control" name="role">
-                                <option value="{{Constants::USER_ROLE_ADMIN}}" {{old('role', '') == Constants::USER_ROLE_ADMIN ? 'selected' : ''}}>Admin</option>
-                                <option value="{{Constants::USER_ROLE_MEMBER}}" {{old('role', '') == Constants::USER_ROLE_MEMBER ? 'selected' : ''}}>Member</option>
-                            </select>
-                            @error('role')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>

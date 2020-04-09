@@ -41,7 +41,8 @@ class SalaryController extends Controller
             $userName = $_POST['name'];
             $member_type = $_POST['member_type'];
         }
-        $date = getdate();
+        $daytime = strtotime(date('Y-m-01', strtotime($request->monthYear)));
+        $date = getdate($daytime);
         $d = $date['wday'];
         $monthYear = $request->monthYear;
         $timeGroup = explode('-', $monthYear);

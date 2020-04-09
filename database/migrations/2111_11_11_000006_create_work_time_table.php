@@ -19,6 +19,7 @@ class CreateWorkTimeTable extends Migration
             $table->bigInteger('user_id');
             $table->decimal('work_time', 8, 1);
             $table->unsignedBigInteger('project')->nullable();
+            $table->boolean('status')->default(false);
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
