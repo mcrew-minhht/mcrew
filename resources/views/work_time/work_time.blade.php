@@ -5,6 +5,12 @@
     .toggleE2 {
         display: none;
     }
+    thead th span{
+        cursor: pointer;
+    }
+    #status{
+        display: none;
+    }
 </style>
 @endsection
 
@@ -101,7 +107,22 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                             <th>Day Of Week</th>
                             <th>Time Of Work(h)</th>
                             <th>Project</th>
-                            <th>Status</th>
+                            @if (Auth::user()->role == 1)
+                            <th>Status
+                                <span id="status">
+                                    <span>(</span>
+                                    <span id="hide-status-all">
+                                        <span id="text-hide">Hide</span>
+                                        <input type="checkbox" hidden id="hide-all">
+                                    </span>/
+                                    <span id="show-status-all">
+                                        <span id="text-show">Show</span>
+                                        <input type="checkbox" hidden id="show-all">
+                                    </span
+                                    <span>)</span>
+                                </span>
+                            </th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody id="dynamicBody1">
@@ -112,19 +133,31 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                             <td>{{ $i['dayOfWeek'] }}</td>
                             <td>
                                 <span class="toggleE1">{{ $i['time'] }}</span>
-                                <input name="time[]" type="number" style="display:none" class="toggleE2" value="{{ $i['time'] }}">
+                                <input name="time[]" @if ($i['status'] == 0) disabled @endif type="number" style="display:none" class="toggleE2" value="{{ $i['time'] }}">
                             </td>
                             <td>
                                 <span class="toggleE1">{{ $i['projectName'] }}</span>
                                 <select name="projects[]" class="toggleE2" style="display:none">
                                     @foreach( $projects as $p )
-                                    <option value="{{$p->id}}" {{ $i['projectID'] == $p->id ? 'selected' : '' }}>{{$p->name}}</option>
+                                    <option @if ($i['status'] == 0) disabled @endif value="{{$p->id}}" {{ $i['projectID'] == $p->id ? 'selected' : '' }}>{{$p->name}}</option>
                                     @endforeach
                                 </select>
                             </td>
-                            <td >
-                                    <input type="number" value="{{ $i['status'] }}" name="status[]" >
+                            @if (Auth::user()->role == 1)
+                            <td>
+                                @if ( $i['status'] == 0)
+                                <span class="radio-status">
+                                    <span class="statusWorkTime" status-id="1">Show</span>
+                                    <input class="setStatus" type="text" hidden value="0" name="status[]" >
+                                </span>
+                                @else
+                                <span class="radio-status">
+                                    <span class="statusWorkTime" status-id="0">Hide</span>
+                                    <input class="setStatus" type="text" hidden value="1" name="status[]" >
+                                </span>
+                                @endif
                             </td>
+                            @endif
                         </tr>
                         @endforeach
                         <tr>
@@ -218,6 +251,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
 
     WORK_TIME.reset = function() {
         $('button.resetBtn').click(function() {
+            $('thead tr th #status').css('display', 'none');
             $('tbody#dynamicBody1 tr').remove();
 
             result.forEach(function(item, index) {
@@ -228,20 +262,32 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                         <td>` + item.dayOfWeek + `</td>
                         <td>
                             <span class="toggleE1">` + item.time + `</span>
-                            <input name="time[]" type="number" class="toggleE2" value="` + item.time + `">
+                            <input name="time[]" `+(item.status  == 0 ? 'disabled' : '')+` type="number" class="toggleE2" value="` + item.time + `">
                         </td>
                         <td>
                             <span class="toggleE1">` + projectName + `</span>
                             <select name="projects[]" class="toggleE2" data-day="` + item.day + `" data-value="` + item.projectID + `">
                             </select>
-                        </td>
-                    </tr>
+                        </td>`+
+                        (item.userId  == 1 ?
+                        `<td>`+
+                        (item.status == 0 ?
+                        `<span class="radio-status">
+                            <span class="statusWorkTime" status-id="1">Show</span>
+                            <input class="setStatus" type="text" hidden value="0" name="status[]" >
+                        </span>` :
+                        `<span class="radio-status">
+                            <span class="statusWorkTime" status-id="0">Hide</span>
+                            <input class="setStatus" type="text" hidden value="1" name="status[]" >
+                        </span>`)+`</td>` :'')+
+
+                    `</tr>
                 `);
 
                 projects.forEach(function(item2, index2) {
                     let isSelected = item.projectID == item2.id ? 'selected' : '';
                     $('select[data-day="' + item.day + '"]').append(`
-                        <option value="` + item2.id + `" ` + isSelected + `>` + item2.name + `</option>
+                        <option `+(item.status  == 0 ? 'disabled' : '')+` value="` + item2.id + `" ` + isSelected + `>` + item2.name + `</option>
                     `);
                 });
             });
@@ -310,6 +356,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
         $('button.editModeBtn').click(function() {
             $('input.toggleE2, select.toggleE2, button.toggleE2').css('display', 'inline-block');
             $('span.toggleE1, button.toggleE1').css('display', 'none');
+            $('thead tr th #status').css('display', 'inline-block');
            // $('#dynamicBody1 tr td .toggleE2').css('display', 'none');
         });
 
@@ -335,7 +382,30 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
             $('form#pdfDownloadForm input[name="userId"]').val(userId);
             $('form#pdfDownloadForm').submit();
         });
-
+        $('.statusWorkTime').click(function(){
+            $(this).closest('.radio-status').find('input[type="text"]').val($(this).attr('status-id'));
+            $(this).css('color','red');
+        })
+        $('#text-hide').click(function(){
+            $(this).parents('#hide-status-all').find('input[type="checkbox"]').attr('checked','checked');
+            $(this).css('color','red');
+            if($('#hide-all').is(":checked"))
+            {
+                $('#text-show').css('color','');
+                $("#show-all").removeAttr('checked');
+                $('.radio-status').find('.setStatus').val(0);
+            }
+        })
+        $('#text-show').click(function(){
+            $(this).parents('#show-status-all').find('input[type="checkbox"]').attr('checked','checked');
+            $(this).css('color','red');
+            if($('#show-all').is(":checked"))
+            {
+                $('#text-hide').css('color','');
+                $("#hide-all").removeAttr('checked');
+                $('.radio-status').find('.setStatus').val(1);
+            }
+        })
     });
 </script>
 @endsection

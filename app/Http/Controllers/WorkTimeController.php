@@ -91,7 +91,6 @@ class WorkTimeController extends Controller
             array_push($resultGroup[$v->user_id], $v);
         }
         $result = [];
-        // dd(count($resultGroup[1]));
         foreach($resultGroup as $i0 => $v0){
             $userName = DB::table('users')->select('name')->where('id', '=', $i0)->first();
             $userName = !empty($userName) ? $userName->name : '';
@@ -101,17 +100,19 @@ class WorkTimeController extends Controller
                 'userName' => $userName,
             ];
             $totalWorkTime = 0;
-            for ($j=0; $j < count($resultGroup[1]); $j++) {
-               $status = $v0[$j]->status;
-            }
-            if (count($resultGroup[1]) == 0) $status = '';
             for($i = 1; $i <= $totalDay; $i++){
+                if (!isset($v0[$i-1])){
+                    $status = '';
+                }else{
+                    $status = $v0[$i-1]->status;
+                }
                 $item = [
                     'day' => $i,
                     'dayOfWeek' => Constants::WEEKDAYS_GROUP[date('w', strtotime($monthYear . '-' . $i))],
                     'time' => 8.00,
                     'projectID' => '',
                     'projectName' => '',
+                    'userId' => Auth::user()->role,
                     'status' => $status
                 ];
                 for($i1 = 0, $l1 = count($v0); $i1 < $l1; $i1++){
@@ -128,7 +129,6 @@ class WorkTimeController extends Controller
 
             $result[$i0]['totalWorkTime'] = $totalWorkTime;
         }
-        // dd($result);
         $projects = DB::table('projects')
         ->select('id', 'name')
         ->get();
@@ -202,28 +202,50 @@ class WorkTimeController extends Controller
         $projects = $request->projects;
         $monthYear = $request->monthYear;
         $status = $request->status;
-        foreach($time as $index => $value){
-            if(!$value){
-                unset($time[$index]);
-                unset($projects[$index]);
-                unset($status[$index]);
-            }else{
-                DB::table('work_time')
-                ->updateOrInsert(
-                    [
-                        'user_id' => $userID,
-                        'date' => $monthYear.'-'.str_pad($index+1, 2, "0", STR_PAD_LEFT),
-                    ],
-                    [
-                        'work_time' => $value,
-                        'project' => $projects[$index],
-                        'status' => $status[$index],
+        if(!isset($status)){
+            foreach($time as $index => $value){
+                if(!$value){
+                    unset($time[$index]);
+                    unset($projects[$index]);
+                }else{
+                    DB::table('work_time')
+                    ->updateOrInsert(
+                        [
+                            'user_id' => $userID,
+                            'date' => $monthYear.'-'.str_pad($index+1, 2, "0", STR_PAD_LEFT),
+                        ],
+                        [
+                            'work_time' => $value,
+                            'project' => $projects[$index]
+                        ]
+                    );
 
-                    ]
-                );
+                }
+            }
+        }else{
+            foreach($time as $index => $value){
+                if(!$value){
+                    unset($time[$index]);
+                    unset($projects[$index]);
+                    unset($status[$index]);
+                }else{
+                    DB::table('work_time')
+                    ->updateOrInsert(
+                        [
+                            'user_id' => $userID,
+                            'date' => $monthYear.'-'.str_pad($index+1, 2, "0", STR_PAD_LEFT),
+                        ],
+                        [
+                            'work_time' => $value,
+                            'project' => $projects[$index],
+                            'status' => $status[$index]
+                        ]
+                    );
 
+                }
             }
         }
+
 
         $request->session()->flash('success', 'Save was successful!');
         return $this->search($request, $monthYear);

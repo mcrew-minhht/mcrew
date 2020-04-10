@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+    @yield('css')
 <aside id="left-panel" class="left-panel">
     @include('partials.sidebar')
 </aside>

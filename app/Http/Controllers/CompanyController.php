@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyUpdate;
 use App\Services\CompanyService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
@@ -73,9 +76,22 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function detailView($id)
     {
-        //
+        $company = DB::table('companies')->select(
+            'id',
+            'name',
+            'phone',
+            'address',
+            'email',
+            'bank_name',
+            'bank_number',
+            'bank_account_name'
+        )->where('id', '=', $id)->get()[0];
+
+        return view('companies.update', [
+            'company' => $company
+        ]);
     }
 
     /**
@@ -85,9 +101,27 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompanyUpdate $request)
     {
-        //
+        $data = [
+            'name' => $request->input('name'),
+            'phone' => $request->input('name'),
+            'address' => $request->input('name'),
+            'email' => $request->input('name'),
+            'bank_name' => $request->input('name'),
+            'bank_number' => $request->input('name'),
+            'bank_account_name' => $request->input('name'),
+            'updated_at' => date(Config::get('constants.DATETIME_FORMAT_MYSQL'))
+        ];
+
+        DB::table('companies')->where('id', $request->id)->update(
+            $data
+        );
+
+        $request->session()->flash('success', 'Update has been completed.');
+
+        return redirect()->route('detailCompany', ['id' => $request->id]);
+
     }
 
     /**
@@ -100,4 +134,5 @@ class CompanyController extends Controller
     {
         //
     }
+
 }

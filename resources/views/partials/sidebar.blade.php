@@ -172,14 +172,6 @@
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="{{route('worktime')}}" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Work time
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
                     <a href="{{route('calcSalary')}}" class="nav-link">
                         <i class="nav-icon fas fa-hand-holding-usd"></i>
                         <p>
@@ -188,6 +180,14 @@
                     </a>
                 </li>
                 @endif
+                <li class="nav-item has-treeview">
+                    <a href="{{route('worktime')}}" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Work time
+                        </p>
+                    </a>
+                </li>
             </ul>
             <ul class="nav nav-pills user-panel nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class

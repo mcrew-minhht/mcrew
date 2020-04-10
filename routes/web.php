@@ -55,6 +55,8 @@ Route::get('companies/regist', 'CompanyController@create')->name('companyRegist'
 Route::POST('/companies/store', 'CompanyController@store');
 Route::get('/companies/search','CompanyController@index')->name('companySearch');
 Route::POST('/companies/search', 'CompanyController@search');
+Route::get('/companies/detail/{id}', 'CompanyController@detailView')->name('detailCompany');
+Route::POST('/companies/update', 'CompanyController@update');
 
 Route::get('/work_time', 'WorkTimeController@index')->name('worktime');
 Route::post('/work_time/search', 'WorkTimeController@search')->middleware('WorktimeAuthentication');

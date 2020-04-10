@@ -85,7 +85,7 @@
                                 <td>{{$list['email']}}</td>
                                 <td>
                                     <div class="perfect-center-ctn">
-                                        <a href="" class="btn btn-sm btn-info">Detail</a>
+                                        <a href="{{route('detailCompany',$list['id'])}}" class="btn-sm btn-info updateProject">Detail</a>
                                     </div>
                                 </td>
                             </tr>
