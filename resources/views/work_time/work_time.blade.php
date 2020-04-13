@@ -90,6 +90,8 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
             <input name="monthYear" type="hidden" value='{{$month}}'>
             <input name="userId" type="hidden" value='{{$userId}}'>
             <input type="hidden" name="userName" value="{{ $userName }}">
+            <input type="hidden" id="project" name="project" value="">
+            <input type="hidden" id="id" name="id" value="">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <strong class="card-title m-0">{{ $month }}/{{ $userName }}</strong>
                 <div class="pull-right">
@@ -136,8 +138,11 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                                 <input name="time[]" @if ($i['status'] == 0) disabled @endif type="number" style="display:none" class="toggleE2" value="{{ $i['time'] }}">
                             </td>
                             <td>
-                                <span class="toggleE1">{{ $i['projectName'] }}</span>
-                                <select name="projects[]" class="toggleE2" style="display:none">
+                                @foreach (($i['projectName']) as $item)
+                                    <span class="toggleE1">{{ $item->name }}</span><br>
+                                @endforeach
+                                <input type="hidden" class="id" value="{{ $i['id'] }}">
+                                <select name="projects[]" multiple  class="toggleE2 multiple" style="display:none">
                                     @foreach( $projects as $p )
                                     <option @if ($i['status'] == 0) disabled @endif value="{{$p->id}}" {{ $i['projectID'] == $p->id ? 'selected' : '' }}>{{$p->name}}</option>
                                     @endforeach
@@ -264,8 +269,10 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                             <span class="toggleE1">` + item.time + `</span>
                             <input name="time[]" `+(item.status  == 0 ? 'disabled' : '')+` type="number" class="toggleE2" value="` + item.time + `">
                         </td>
-                        <td>
-                            <span class="toggleE1">` + projectName + `</span>
+                        <td>`+
+                            console.log(projectName)
+
+                            +`
                             <select name="projects[]" class="toggleE2" data-day="` + item.day + `" data-value="` + item.projectID + `">
                             </select>
                         </td>`+
@@ -406,6 +413,13 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                 $('.radio-status').find('.setStatus').val(1);
             }
         })
+
+        $('.multiple').on('click',function(){
+            var id = $(this).closest('td').find('input.id').val()
+            var arr = $(this).val();
+            $('#saveForm').find('#project').val(arr);
+            $('#saveForm').find('#id').val(id);
+          })
     });
 </script>
 @endsection

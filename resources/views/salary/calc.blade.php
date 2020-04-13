@@ -179,6 +179,7 @@
                                 <th class="t-x-y-center w-150p" rowspan="3">Tổng Thu Nhập Tháng</th>
                                 <th class="t-x-y-center w-400p" colspan="4">Các Khoản Khấu Trừ Vào Lương</th>
                                 <th class="t-x-y-center w-500p" colspan="5">Thuế thu nhập cá nhân</th>
+                                <th class="t-x-y-center w-150p" rowspan="3">Thực nhận</th>
                             </tr>
                             <tr>
                                 <th class="t-x-y-center" rowspan="2">Lương năng suất lao động</th>
@@ -255,10 +256,12 @@
                                 }
                                 ?>
                                 <td>{{$personalTax}}</td>
+                                <?php $total = $totalIncome-$totalDependentPeopleFee-$personalTax ?>
+                                <td>{{$total}}</td>
                             </tr>
                             @endforeach
                             @if(empty($workTime))
-                            <td class="t-center" colspan="21">No Data</td>
+                            <td class="t-center" colspan="22">No Data</td>
                             @endif
                         </tbody>
                     </table>

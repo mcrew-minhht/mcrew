@@ -19,6 +19,8 @@ class WorkTimeController extends Controller
             Constants::WT_TARGET_0 => 'Me',
             Constants::WT_TARGET_1 => 'Other guys',
         ];
+        $date = getdate();
+        $month = $date['year'].'-'.str_pad($date['mon'], 2, '0', STR_PAD_LEFT );
         return view('work_time.work_time', [
             'targetSelectData' => $targetSelectData,
         ]);
@@ -79,7 +81,7 @@ class WorkTimeController extends Controller
         $userName = $request->userName ? $request->userName : $user->name;
         $rResult = DB::table('work_time')
         ->leftJoin('projects', 'work_time.project', '=', 'projects.id')
-        ->select('work_time.date', 'work_time.status', 'work_time.user_id', 'work_time.work_time', 'work_time.project as projectID', 'projects.name as projectName')
+        ->select('work_time.date', 'work_time.status', 'work_time.id','work_time.user_id', 'work_time.work_time', 'work_time.project as projectID', 'projects.name as projectName')
         ->where('work_time.date', 'like', $monthYear . '%')
         ->whereIn('work_time.user_id', $userId)
         ->get();
@@ -103,15 +105,32 @@ class WorkTimeController extends Controller
             for($i = 1; $i <= $totalDay; $i++){
                 if (!isset($v0[$i-1])){
                     $status = '';
+                    $id = '';
+                    $project = '';
                 }else{
+                    $id = $v0[$i-1]->id;
                     $status = $v0[$i-1]->status;
+                    $projectId = json_decode($v0[$i-1]->projectID);
+                    if(is_array($projectId)){
+                        $project = DB::table('projects')
+                        ->select('name')
+                        ->WhereIn('id', ['1','2'])
+                        ->get();
+                    }else{
+                        $project = DB::table('projects')
+                        ->select('name')
+                        ->Where('id', $projectId)
+                        ->get();
+                    }
+
                 }
                 $item = [
+                    'id' => $id,
                     'day' => $i,
                     'dayOfWeek' => Constants::WEEKDAYS_GROUP[date('w', strtotime($monthYear . '-' . $i))],
                     'time' => 8.00,
                     'projectID' => '',
-                    'projectName' => '',
+                    'projectName' => $project,
                     'userId' => Auth::user()->role,
                     'status' => $status
                 ];
@@ -119,7 +138,6 @@ class WorkTimeController extends Controller
                     if( $i == explode('-', $v0[$i1]->date)[2] ){
                         $item['time'] = $v0[$i1]->work_time;
                         $item['projectID'] = $v0[$i1]->projectID;
-                        $item['projectName'] = $v0[$i1]->projectName;
                     }
                 }
 
@@ -129,6 +147,7 @@ class WorkTimeController extends Controller
 
             $result[$i0]['totalWorkTime'] = $totalWorkTime;
         }
+
         $projects = DB::table('projects')
         ->select('id', 'name')
         ->get();
@@ -202,31 +221,12 @@ class WorkTimeController extends Controller
         $projects = $request->projects;
         $monthYear = $request->monthYear;
         $status = $request->status;
-        if(!isset($status)){
+        $project = explode(',',$request->project);
+        $id = $request->id;
+        if(isset($time)){
             foreach($time as $index => $value){
                 if(!$value){
                     unset($time[$index]);
-                    unset($projects[$index]);
-                }else{
-                    DB::table('work_time')
-                    ->updateOrInsert(
-                        [
-                            'user_id' => $userID,
-                            'date' => $monthYear.'-'.str_pad($index+1, 2, "0", STR_PAD_LEFT),
-                        ],
-                        [
-                            'work_time' => $value,
-                            'project' => $projects[$index]
-                        ]
-                    );
-
-                }
-            }
-        }else{
-            foreach($time as $index => $value){
-                if(!$value){
-                    unset($time[$index]);
-                    unset($projects[$index]);
                     unset($status[$index]);
                 }else{
                     DB::table('work_time')
@@ -237,7 +237,31 @@ class WorkTimeController extends Controller
                         ],
                         [
                             'work_time' => $value,
-                            'project' => $projects[$index],
+                            'status' => $status[$index]
+                        ]
+                    );
+                    if (isset($project) || isset($id)) {
+                        $data = [
+                            'project' => $project
+                        ];
+                        DB::table('work_time')->where('id', $id)->update(
+                            $data
+                        );
+                    }
+                }
+            }
+        }else{
+            foreach($status as $index => $value){
+                if(!$value){
+                    unset($status[$index]);
+                }else{
+                    DB::table('work_time')
+                    ->updateOrInsert(
+                        [
+                            'user_id' => $userID,
+                            'date' => $monthYear.'-'.str_pad($index+1, 2, "0", STR_PAD_LEFT),
+                        ],
+                        [
                             'status' => $status[$index]
                         ]
                     );
