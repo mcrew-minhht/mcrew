@@ -48,7 +48,11 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
                             <label>Month</label>
+                            @if (isset($month))
+                            <input type="month" class="form-control" name="month"  value="{{ $month }}">
+                            @else
                             <input type="month" class="form-control" name="month" value="{{old('month', '')}}" required>
+                            @endif
                             @error('month')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -138,9 +142,11 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                                 <input name="time[]" @if ($i['status'] == 0) disabled @endif type="number" style="display:none" class="toggleE2" value="{{ $i['time'] }}">
                             </td>
                             <td>
-                                @foreach (($i['projectName']) as $item)
-                                    <span class="toggleE1">{{ $item->name }}</span><br>
-                                @endforeach
+                                @if (is_array($i['projectName']) && isset($i['projectName']) )
+                                    @foreach (($i['projectName']) as $item)
+                                        <span class="toggleE1">{{ $item->name }}</span><br>
+                                    @endforeach
+                                @endif
                                 <input type="hidden" class="id" value="{{ $i['id'] }}">
                                 <select name="projects[]" multiple  class="toggleE2 multiple" style="display:none">
                                     @foreach( $projects as $p )
@@ -168,6 +174,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                         <tr>
                             <td colspan="2">Total: </td>
                             <td id="timeSum">{{$totalWorkTime}}</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         @else
@@ -213,6 +220,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                         <td>{{ $i->total_time }}</td>
                         <td class="t-center"><button class="btn btn-primary w-80p pdfDBtn2" data-month="{{$month}}" data-userId="{{$i->user_id}}" data-userName="{{$i->name}}">Pdf</button></td>
                         <td class="t-center"><button class="btn btn-default w-80p toODB" data-userId="{{$i->user_id}}" data-userName="{{$i->name}}">Detail</button></td>
+                        <td></td>
                     </tr>
                     @endforeach
                     @else
@@ -261,6 +269,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
 
             result.forEach(function(item, index) {
                 let projectName = item.projectName ? item.projectName : '';
+
                 $('tbody#dynamicBody1').append(`
                     <tr>
                         <td>` + item.day + `</td>
@@ -269,11 +278,9 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                             <span class="toggleE1">` + item.time + `</span>
                             <input name="time[]" `+(item.status  == 0 ? 'disabled' : '')+` type="number" class="toggleE2" value="` + item.time + `">
                         </td>
-                        <td>`+
-                            console.log(projectName)
-
-                            +`
-                            <select name="projects[]" class="toggleE2" data-day="` + item.day + `" data-value="` + item.projectID + `">
+                        <td id='projectName`+item.day+`'>
+                            <input type="hidden" class="id" value="`+item.id+`">
+                            <select name="projects[]" class="toggleE2" multiple data-day="` + item.day + `" data-value="` + item.projectID + `">
                             </select>
                         </td>`+
                         (item.userId  == 1 ?
@@ -290,7 +297,11 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
 
                     `</tr>
                 `);
-
+                $.each(projectName,function(i, v) {
+                    $('#projectName'+item.day+'').append(
+                        ` <span class="toggleE1">`+v.name+`</span> <br>`
+                    )
+                })
                 projects.forEach(function(item2, index2) {
                     let isSelected = item.projectID == item2.id ? 'selected' : '';
                     $('select[data-day="' + item.day + '"]').append(`
@@ -303,6 +314,7 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                 <tr>
                     <td colspan="2">Total: </td>
                     <td>` + totalWorkTime + `</td>
+                    <td></td>
                     <td></td>
                 </tr>
             `);
