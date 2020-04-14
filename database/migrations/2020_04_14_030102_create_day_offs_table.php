@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkTimeTable extends Migration
+class CreateDayOffsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,13 @@ class CreateWorkTimeTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_time', function (Blueprint $table) {
+        Schema::create('day_offs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('date');
-            $table->bigInteger('user_id');
-            $table->decimal('work_time', 8, 1);
-            $table->string('project');
             $table->boolean('status')->default(false);
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
-
-            $table->foreign('project')->references('id')->on('projects');
         });
     }
 
@@ -35,6 +30,6 @@ class CreateWorkTimeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_time');
+        Schema::dropIfExists('day_offs');
     }
 }

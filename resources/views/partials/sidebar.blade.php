@@ -181,6 +181,29 @@
                 </li>
                 @endif
                 <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-people-arrows"></i>
+                        <p>
+                            Day Off
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('searchDayOff')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Search</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('registDayOff')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Regist</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
                     <a href="{{route('worktime')}}" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>

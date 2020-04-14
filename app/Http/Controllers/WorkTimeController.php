@@ -269,8 +269,6 @@ class WorkTimeController extends Controller
                 }
             }
         }
-
-
         $request->session()->flash('success', 'Save was successful!');
         return $this->search($request, $monthYear);
     }

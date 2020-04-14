@@ -75,3 +75,12 @@ Route::post('/salary/calc/search', 'SalaryController@calcSearch')->middleware(Co
 
 
 Route::get('logout', 'Auth\LoginController@logout');
+
+
+Route::get('/dayoff/regist','DayOffController')->name('registDayOff');
+Route::post('/dayoff/regist','DayOffController@store')->name('storeDayOff');
+Route::get('/dayoff/search', 'DayOffController@searchView')->name('searchDayOff');
+Route::post('/dayoff/search','DayOffController@search')->name('searchDayOff');
+Route::get('/dayoff/detail/{id}', 'DayOffController@detailView')->name('detailDayOff');
+Route::post('/dayoff/update/{id}','DayOffController@update')->name('updateDayOff');
+// Route::post('/projects/remove/user', 'ProjectController@destroy');
