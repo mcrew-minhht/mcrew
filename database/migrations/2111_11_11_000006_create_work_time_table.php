@@ -24,7 +24,6 @@ class CreateWorkTimeTable extends Migration
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
 
-            $table->foreign('project')->references('id')->on('projects');
         });
     }
 
