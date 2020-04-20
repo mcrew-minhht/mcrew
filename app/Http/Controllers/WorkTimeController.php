@@ -23,6 +23,7 @@ class WorkTimeController extends Controller
         $month = $date['year'].'-'.str_pad($date['mon'], 2, '0', STR_PAD_LEFT );
         return view('work_time.work_time', [
             'targetSelectData' => $targetSelectData,
+            'month' => $month
         ]);
     }
 
