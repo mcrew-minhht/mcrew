@@ -48,8 +48,8 @@ $preventMember = $role == Constants::USER_ROLE_MEMBER
                     <div class="col-xs-6 col-md-4">
                         <div class="form-group">
                             <label>Month</label>
-                            @if (isset($month))
-                            <input type="month" class="form-control" name="month"  value="{{ $month }}">
+                            @if (isset($monthDefault))
+                            <input type="month" class="form-control" name="month"  value="{{ $monthDefault }}">
                             @else
                             <input type="month" class="form-control" name="month" value="{{old('month', '')}}" required>
                             @endif
