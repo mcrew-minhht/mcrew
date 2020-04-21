@@ -33,6 +33,7 @@ Route::POST('/users/search/submit', 'UserController@search')->middleware(Constan
 Route::POST('/users/detail', 'UserController@detailView');
 Route::POST('/users/update', 'UserController@update')->name('user_update');
 Route::get('/users/password', 'UserController@editPassword')->name('user_password');
+Route::POST('/users/removefile', 'UserController@removeFile');
 Route::POST('/users/password', 'UserController@updatePassword');
 Route::get('/users/update/errors', 'UserController@updateError');
 

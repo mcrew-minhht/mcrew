@@ -38,6 +38,7 @@ class UserUpdate extends FormRequest
             'phone_number' => 'between:0,11',
             'current_address' => 'between:0,255',
             'regularly_address' => 'between:0,255',
+            'file'=> 'nullable|mimes:pdf'
         ];
     }
 

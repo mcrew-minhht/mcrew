@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Auth;
+use File;
 
 class UserController extends Controller
 {
@@ -129,6 +130,7 @@ class UserController extends Controller
             'regularly_address',
             'join_company_date',
             'company_staff_date',
+            'file',
             'role'
         )->where('id', '=', $userId)->get()[0];
         $userInfo->birthday = !empty($userInfo->birthday) ? date('Y-m-d', strtotime($userInfo->birthday)) : '';
@@ -152,6 +154,18 @@ class UserController extends Controller
 
     public function update(UserUpdate $request)
     {
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file')->getClientOriginalName();
+
+            $fileName = pathinfo($file, PATHINFO_FILENAME).'-'.date('d-m-Y').'.'.pathinfo($file, PATHINFO_EXTENSION);
+
+            $request->file->move(public_path('uploads'), $fileName);
+        }else{
+            $fileName = NULL;
+        }
+
         $data = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -162,9 +176,12 @@ class UserController extends Controller
             'identity_place' => $request->input('identity_place'),
             'phone_number' => $request->input('phone_number'),
             'current_address' => $request->input('current_address'),
+            'file' => $fileName,
             'regularly_address' => $request->input('regularly_address'),
             'updated_at' => date(Config::get('constants.DATETIME_FORMAT_MYSQL'))
+
         ];
+
         DB::table('users')->where('id', $request->id)->update(
             $data
         );
@@ -185,6 +202,7 @@ class UserController extends Controller
             'regularly_address',
             'join_company_date',
             'company_staff_date',
+            'file',
             'role'
         )->where('id', '=', $request->id)->get()[0];
         $userInfo->birthday = !empty($userInfo->birthday) ? date('Y-m-d', strtotime($userInfo->birthday)) : '';
@@ -228,6 +246,54 @@ class UserController extends Controller
         }
 
 
+    }
+    public function removeFile(Request $request)
+    {
+        $fileName = DB::table('users')->select('id', 'file')->where('id', '=', $request->id)->first();
+
+        if (File::exists('uploads/' . $fileName->file)) {
+            unlink('uploads/' . $fileName->file);
+        }
+
+        $data = [
+            'file' => NULL
+        ];
+
+        DB::table('users')->where('id', $request->id)->update(
+            $data
+        );
+        $userInfo = DB::table('users')->select(
+            'id',
+            'name',
+            'member_type',
+            'email',
+            'phone_number',
+            'email_verified_at',
+            'birthday',
+            'identity',
+            'identity_date',
+            'identity_place',
+            'phone_number',
+            'current_address',
+            'regularly_address',
+            'join_company_date',
+            'company_staff_date',
+            'file',
+            'role'
+        )->where('id', '=', $request->id)->get()[0];
+        $userInfo->birthday = !empty($userInfo->birthday) ? date('Y-m-d', strtotime($userInfo->birthday)) : '';
+        $userInfo->identity_date = !empty($userInfo->identity_date) ? date('Y-m-d', strtotime($userInfo->identity_date)) : '';
+        $userInfo->join_company_date = !empty($userInfo->join_company_date) ? date('Y-m-d', strtotime($userInfo->join_company_date)) : '';
+        $userInfo->company_staff_date = !empty($userInfo->company_staff_date) ? date('Y-m-d', strtotime($userInfo->company_staff_date)) : '';
+
+        $member_types = DB::table('member_types')->select('id', 'name')->get();
+        $data = [
+            'userInfo' => $userInfo,
+            'member_types' => $member_types
+        ];
+
+        $request->session()->flash('success', 'Delete contract success');
+        return view('users.update', $data);
     }
 
     public function logout(){

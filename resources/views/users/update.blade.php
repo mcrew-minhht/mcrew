@@ -1,5 +1,17 @@
 @extends('master')
-
+@section('css')
+    <style>
+        #removeFile{
+            color:red
+        }
+        #openFile{
+            color:#000
+        }
+        #uploadFile{
+            border:none
+        }
+    </style>
+@endsection
 @section('content')
 <section class="content">
     <div class="card">
@@ -7,11 +19,16 @@
             <strong class="card-title">Update User</strong>
         </div>
         <div class="card-body">
-            <form action="{{asset('users/detail')}}" method="post" id="resetForm">
+            <form action="{{asset('users/detail')}}" method="post"  id="resetForm" >
                 @csrf
                 <input type="hidden" name="id" value="{{old('id', '')}}">
             </form>
-            <form action="{{asset('users/update')}}" method="POST" id="submitForm">
+            <form action="{{asset('users/removefile')}}" method="post"  id="removeForm" >
+                @csrf
+                <input type="hidden" name="id" value="">
+                <input type="hidden" name="file">
+            </form>
+            <form action="{{asset('users/update')}}" method="POST" id="submitForm" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{old('id', '')}}">
                 <div class="row">
@@ -105,6 +122,31 @@
                             @enderror
                         </div>
                     </div>
+                    @if (isset($userInfo->file))
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group file">
+                                <label>Contract</label>
+                                <div>
+                                    <embed src="{{ asset('uploads/'.$userInfo->file) }}" type="application/pdf"   height="250px" width="350px">
+                                    <div class="text-right">
+                                        <a target="_blank" class="mr-3" href="{{ asset('uploads/'.$userInfo->file) }}" id="openFile">Open</a>
+                                        <input type="hidden" class="idUser" value="{{ $userInfo->id }}">
+                                        <a href="javascript:void(0)" file-name="{{ $userInfo->file }}" id="removeFile">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-xs-6 col-md-4">
+                            <div class="form-group">
+                                <label>Contract File</label>
+                                <input type="file" class="form-control" id="uploadFile" name="file" >
+                                @error('file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </form>
             <div class="text-right">
@@ -139,6 +181,13 @@
                 }
             }
         }
+
+        $('#removeFile').click(function(){
+            var id = $('#removeFile').closest('.file').find('.idUser').val();
+            $('#removeForm').find('input[name="file"]').val($(this).attr('file-name'));
+            $('#removeForm').find('input[name="id"]').val(id);
+            $('#removeForm').submit();
+        });
 
         $('#submitBtn').click(function() {
             $('#submitForm').submit();
