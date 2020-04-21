@@ -159,9 +159,10 @@ class UserController extends Controller
 
             $file = $request->file('file')->getClientOriginalName();
 
-            $fileName = pathinfo($file, PATHINFO_FILENAME).'-'.date('d-m-Y').'.'.pathinfo($file, PATHINFO_EXTENSION);
+            $fileName = pathinfo($file, PATHINFO_FILENAME).'_'.substr(md5(openssl_random_pseudo_bytes(20)),-12).'.'.pathinfo($file, PATHINFO_EXTENSION);
 
             $request->file->move(public_path('uploads'), $fileName);
+
         }else{
             $fileName = NULL;
         }
