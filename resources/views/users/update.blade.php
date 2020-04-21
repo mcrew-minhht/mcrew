@@ -127,9 +127,9 @@
                             <div class="form-group file">
                                 <label>Contract</label>
                                 <div>
-                                    <embed src="{{ asset('uploads/'.$userInfo->file) }}" type="application/pdf"   height="250px" width="350px">
+                                    <embed src="{{ asset('uploads/contracts/'.$userInfo->file) }}" type="application/pdf"   height="250px" width="350px">
                                     <div class="text-right">
-                                        <a target="_blank" class="mr-3" href="{{ asset('uploads/'.$userInfo->file) }}" id="openFile">Open</a>
+                                        <a target="_blank" class="mr-3" href="{{ asset('uploads/contracts/'.$userInfo->file) }}" id="openFile">Open</a>
                                         <input type="hidden" class="idUser" value="{{ $userInfo->id }}">
                                         <a href="javascript:void(0)" file-name="{{ $userInfo->file }}" id="removeFile">Delete</a>
                                     </div>

@@ -161,7 +161,7 @@ class UserController extends Controller
 
             $fileName = pathinfo($file, PATHINFO_FILENAME).'_'.substr(md5(openssl_random_pseudo_bytes(20)),-12).'.'.pathinfo($file, PATHINFO_EXTENSION);
 
-            $request->file->move(public_path('uploads'), $fileName);
+            $request->file->move(public_path('uploads/contracts/'), $fileName);
 
         }else{
             $fileName = NULL;
@@ -252,8 +252,8 @@ class UserController extends Controller
     {
         $fileName = DB::table('users')->select('id', 'file')->where('id', '=', $request->id)->first();
 
-        if (File::exists('uploads/' . $fileName->file)) {
-            unlink('uploads/' . $fileName->file);
+        if (File::exists('uploads/contracts/' . $fileName->file)) {
+            unlink('uploads/contracts/' . $fileName->file);
         }
 
         $data = [
