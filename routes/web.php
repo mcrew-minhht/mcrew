@@ -35,7 +35,7 @@ Route::POST('/users/update', 'UserController@update')->name('user_update');
 Route::get('/users/password', 'UserController@editPassword')->name('user_password');
 Route::POST('/users/removefile', 'UserController@removeFile');
 Route::POST('/users/password', 'UserController@updatePassword');
-Route::get('/users/update/errors', 'UserController@updateError');
+Route::get('/users/update/errors-{id}', 'UserController@updateError')->name('user_update_error');
 
 Route::get('/projects/regist','ProjectController@registView')->name('registProject');
 Route::post('/projects/regist','ProjectController@regist')->name('saveProject');

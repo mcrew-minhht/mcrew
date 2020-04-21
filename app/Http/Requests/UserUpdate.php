@@ -24,7 +24,7 @@ class UserUpdate extends FormRequest
      */
     public function rules(Request $requests)
     {
-        $this->redirect = '/users/update/errors';
+        $this->redirect = route('user_update_error', ['id' => $requests->id]);
 
         return [
             'id' => 'required',

@@ -147,9 +147,21 @@ class UserController extends Controller
         return view('users.update', $data);
     }
 
-    public function updateError()
+    public function updateError($id)
     {
-        return view('users.update');
+        $userInfo = DB::table('users')->select(
+            'id',
+            'file'
+        )->where('id', '=', $id)->get()[0];
+
+        $member_types = DB::table('member_types')->select('id', 'name')->get();
+
+        $data = [
+            'userInfo' => $userInfo,
+            'member_types' => $member_types
+        ];
+
+        return view('users.update',$data);
     }
 
     public function update(UserUpdate $request)
